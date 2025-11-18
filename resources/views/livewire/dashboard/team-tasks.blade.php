@@ -1,8 +1,8 @@
 <div class="h-full w-full">
     @if($selectedTeam)
-    <div class="flex h-full w-full gap-4 overflow-hidden">
+    <div class="flex h-full w-full flex-col gap-4 overflow-hidden md:flex-row">
         <!-- Column 1: Pending -->
-        <div class="flex w-1/3 min-w-0 max-w-[33.333%] flex-col overflow-hidden">
+        <div class="flex w-full min-w-0 flex-col overflow-hidden md:w-1/3 md:max-w-[33.333%]">
             <div class="relative flex flex-col overflow-hidden rounded-xl border border-amber-500/30 bg-gradient-to-br from-amber-950/40 to-neutral-900 shadow-lg">
                 <div class="flex items-center justify-between border-b border-amber-500/20 bg-amber-950/30 px-4 py-3">
                     <div class="flex items-center gap-2">
@@ -83,7 +83,7 @@
         </div>
 
         <!-- Column 2: Ongoing -->
-        <div class="flex w-1/3 min-w-0 max-w-[33.333%] flex-col overflow-hidden">
+        <div class="flex w-full min-w-0 flex-col overflow-hidden md:w-1/3 md:max-w-[33.333%]">
             <div class="relative flex flex-col overflow-hidden rounded-xl border border-sky-500/30 bg-gradient-to-br from-sky-950/40 to-neutral-900 shadow-lg">
                 <div class="flex items-center justify-between border-b border-sky-500/20 bg-sky-950/30 px-4 py-3">
                     <div class="flex items-center gap-2">
@@ -176,7 +176,7 @@
         </div>
 
         <!-- Column 3: Paused & Completed -->
-        <div class="flex w-1/3 min-w-0 max-w-[33.333%] flex-col gap-4 overflow-y-auto">
+        <div class="flex w-full min-w-0 flex-col gap-4 overflow-y-auto md:w-1/3 md:max-w-[33.333%]">
             <!-- Paused -->
             <div class="relative flex flex-col overflow-hidden rounded-xl border border-orange-500/30 bg-gradient-to-br from-orange-950/40 to-neutral-900 shadow-lg">
                 <div class="flex items-center justify-between border-b border-orange-500/20 bg-orange-950/30 px-4 py-3">
