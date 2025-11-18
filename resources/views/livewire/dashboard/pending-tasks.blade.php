@@ -1,4 +1,4 @@
-<div class="relative flex flex-col overflow-hidden rounded-xl border border-amber-500/30 bg-gradient-to-br from-amber-950/40 to-neutral-900 shadow-lg dark:border-amber-600/20">
+<div x-data="{ showDeleteModal: false, taskToDelete: null, taskName: '' }" class="relative flex flex-col overflow-hidden rounded-xl border border-amber-500/30 bg-gradient-to-br from-amber-950/40 to-neutral-900 shadow-lg dark:border-amber-600/20">
     <div class="flex items-center justify-between border-b border-amber-500/20 bg-amber-950/30 px-4 py-3 backdrop-blur-sm">
         <div class="flex items-center gap-2">
             <svg class="size-5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -85,8 +85,7 @@
 
                                             <!-- Botão Excluir -->
                                             <button
-                                                wire:click.stop="deleteTask({{ $task->id }})"
-                                                wire:confirm="Tem certeza que deseja excluir esta tarefa?"
+                                                @click.stop="showDeleteModal = true; taskToDelete = {{ $task->id }}; taskName = '{{ addslashes($task->name) }}'"
                                                 class="rounded-lg bg-red-600 p-2 text-white transition-all hover:bg-red-500 active:scale-95"
                                                 title="Excluir tarefa">
                                                 <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -117,5 +116,65 @@
                 <p class="text-sm text-amber-300/50">No pending tasks</p>
             </div>
         @endforelse
+    </div>
+
+    <!-- Modal de Confirmação de Exclusão -->
+    <div
+        x-show="showDeleteModal"
+        x-cloak
+        class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
+        @click.self="showDeleteModal = false"
+    >
+        <div
+            class="relative w-full max-w-md rounded-xl bg-neutral-800 shadow-2xl"
+            @click.stop
+            x-transition:enter="transition ease-out duration-200"
+            x-transition:enter-start="opacity-0 scale-95"
+            x-transition:enter-end="opacity-100 scale-100"
+            x-transition:leave="transition ease-in duration-150"
+            x-transition:leave-start="opacity-100 scale-100"
+            x-transition:leave-end="opacity-0 scale-95"
+        >
+            <!-- Header -->
+            <div class="flex items-center gap-3 border-b border-neutral-700 px-6 py-4">
+                <div class="flex size-10 items-center justify-center rounded-full bg-red-500/10">
+                    <svg class="size-6 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                    </svg>
+                </div>
+                <div class="flex-1">
+                    <h2 class="text-lg font-semibold text-white">Confirmar Exclusão</h2>
+                </div>
+            </div>
+
+            <!-- Content -->
+            <div class="px-6 py-4">
+                <p class="text-sm text-neutral-300">
+                    Tem certeza que deseja excluir a tarefa
+                    <span class="font-semibold text-white" x-text="taskName"></span>?
+                </p>
+                <p class="mt-2 text-sm text-neutral-400">
+                    Esta ação não pode ser desfeita.
+                </p>
+            </div>
+
+            <!-- Footer -->
+            <div class="flex items-center justify-end gap-3 border-t border-neutral-700 px-6 py-4">
+                <button
+                    type="button"
+                    @click="showDeleteModal = false"
+                    class="rounded-lg border border-neutral-600 bg-neutral-900 px-4 py-2 text-sm font-medium text-neutral-300 transition hover:border-neutral-500 hover:bg-neutral-800 hover:text-white"
+                >
+                    Cancelar
+                </button>
+                <button
+                    type="button"
+                    @click="$wire.deleteTask(taskToDelete); showDeleteModal = false"
+                    class="rounded-lg bg-red-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:ring-offset-neutral-800"
+                >
+                    Excluir Tarefa
+                </button>
+            </div>
+        </div>
     </div>
 </div>
