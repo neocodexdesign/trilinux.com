@@ -1,4 +1,4 @@
-<div>
+<div x-data="{ confirmDelete: false }">
     @if($showModal)
         <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4" wire:click.self="closeModal">
             <div class="flex h-[90vh] w-full max-w-5xl flex-col rounded-xl bg-neutral-900 shadow-2xl" wire:click.stop>
@@ -158,8 +158,8 @@
                     <div>
                         @if($task)
                             <button
-                                wire:click="deleteTask"
-                                wire:confirm="Are you sure you want to delete this task?"
+                                type="button"
+                                @click="confirmDelete = true"
                                 class="rounded-lg bg-red-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-red-700">
                                 Delete Task
                             </button>
@@ -182,4 +182,61 @@
             </div>
         </div>
     @endif
+
+    <!-- Delete confirmation modal -->
+    <div
+        x-cloak
+        x-show="confirmDelete"
+        class="fixed inset-0 z-[9999] flex items-center justify-center bg-black/60 p-4"
+        x-transition:enter="transition ease-out duration-200"
+        x-transition:enter-start="opacity-0"
+        x-transition:enter-end="opacity-100"
+        x-transition:leave="transition ease-in duration-150"
+        x-transition:leave-start="opacity-100"
+        x-transition:leave-end="opacity-0"
+        @click.self="confirmDelete = false"
+    >
+        <div
+            class="w-full max-w-md rounded-xl bg-neutral-900 shadow-2xl ring-1 ring-red-500/40"
+            x-transition:enter="transition ease-out duration-200"
+            x-transition:enter-start="opacity-0 scale-95"
+            x-transition:enter-end="opacity-100 scale-100"
+            x-transition:leave="transition ease-in duration-150"
+            x-transition:leave-start="opacity-100 scale-100"
+            x-transition:leave-end="opacity-0 scale-95"
+        >
+            <div class="flex items-center gap-3 border-b border-neutral-800 px-5 py-4">
+                <div class="flex size-10 items-center justify-center rounded-full bg-red-500/15">
+                    <svg class="size-6 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                    </svg>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold text-white">Delete Task</h3>
+                    <p class="text-sm text-neutral-400">This action cannot be undone.</p>
+                </div>
+            </div>
+
+            <div class="px-5 py-4 text-sm text-neutral-300">
+                Are you sure you want to delete this task?
+            </div>
+
+            <div class="flex items-center justify-end gap-3 border-t border-neutral-800 px-5 py-4">
+                <button
+                    type="button"
+                    @click="confirmDelete = false"
+                    class="rounded-lg border border-neutral-600 bg-neutral-900 px-4 py-2 text-sm font-medium text-neutral-300 transition hover:border-neutral-500 hover:text-white"
+                >
+                    Cancel
+                </button>
+                <button
+                    type="button"
+                    @click="$wire.deleteTask(); confirmDelete = false"
+                    class="rounded-lg bg-red-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-red-500"
+                >
+                    Delete
+                </button>
+            </div>
+        </div>
+    </div>
 </div>
