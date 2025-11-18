@@ -40,4 +40,7 @@
             <livewire:dashboard.team-tasks />
         </div>
     </div>
+
+    <!-- Modal de Edição de Tarefa -->
+    <livewire:dashboard.edit-task />
 </x-layouts.app>

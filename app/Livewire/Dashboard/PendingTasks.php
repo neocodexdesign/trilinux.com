@@ -4,6 +4,7 @@ namespace App\Livewire\Dashboard;
 
 use App\Models\Task;
 use Flux\Flux;
+use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -12,6 +13,39 @@ class PendingTasks extends Component
     use WithPagination;
 
     public int $perPage = 5;
+
+    public function editTask($taskId)
+    {
+        $this->dispatch('edit-task', taskId: $taskId);
+    }
+
+    #[On('task-updated')]
+    #[On('task-created')]
+    public function refreshTasks()
+    {
+        // Força a re-renderização do componente
+    }
+
+    public function deleteTask($taskId)
+    {
+        $task = auth()->user()
+            ->assignedTasks()
+            ->where('id', $taskId)
+            ->first();
+
+        if (!$task) {
+            Flux::toast('Tarefa não encontrada', variant: 'danger');
+            return;
+        }
+
+        try {
+            $task->delete();
+            Flux::toast('Tarefa excluída com sucesso', variant: 'success');
+            return $this->redirect(route('dashboard'), navigate: true);
+        } catch (\Exception $e) {
+            Flux::toast('Erro ao excluir tarefa: ' . $e->getMessage(), variant: 'danger');
+        }
+    }
 
     public function startTask($taskId)
     {
