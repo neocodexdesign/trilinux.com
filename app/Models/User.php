@@ -3,11 +3,13 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 
@@ -49,6 +51,8 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    protected ?string $resolvedRoleCache = null;
 
     /**
      * Get the user's initials
@@ -113,5 +117,86 @@ class User extends Authenticatable
             ->where('team_id', $team->id)
             ->wherePivot('role', 'leader')
             ->exists();
+    }
+
+    /**
+     * Determines if this user acts as a platform superuser.
+     */
+    public function isSuperuser(): bool
+    {
+        return $this->role === 'superuser';
+    }
+
+    /**
+     * Basic permission resolver based on predefined role capabilities.
+     * This keeps policies working even without a dedicated ACL package.
+     */
+    public function hasPermissionTo(string $permission): bool
+    {
+        if ($this->isSuperuser()) {
+            return true;
+        }
+
+        $permissions = $this->permissionsForRole();
+
+        if (in_array($permission, $permissions, true)) {
+            return true;
+        }
+
+        if (str_contains($permission, '.')) {
+            [$group] = explode('.', $permission, 2);
+            return in_array($group . '.*', $permissions, true);
+        }
+
+        return false;
+    }
+
+    protected function permissionsForRole(): array
+    {
+        return match ($this->role) {
+            'admin' => [
+                'task.*',
+                'stage.*',
+                'project.*',
+            ],
+            'operator' => [
+                'task.view',
+                'task.start',
+                'task.pause',
+                'task.resume',
+                'task.complete',
+                'stage.view',
+                'project.view',
+            ],
+            'client' => [
+                'task.view',
+            ],
+            default => [],
+        };
+    }
+
+    /**
+     * Provide access to the role attribute even when it's stored on the team_user pivot.
+     */
+    protected function role(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => $value ?? $this->resolveRoleFromTeams(),
+            set: fn ($value) => $value
+        );
+    }
+
+    protected function resolveRoleFromTeams(): string
+    {
+        if ($this->resolvedRoleCache !== null) {
+            return $this->resolvedRoleCache;
+        }
+
+        $role = DB::table('team_user')
+            ->where('user_id', $this->id)
+            ->orderByDesc('joined_at')
+            ->value('role');
+
+        return $this->resolvedRoleCache = $role ?? 'client';
     }
 }

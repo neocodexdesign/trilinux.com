@@ -5,6 +5,7 @@ namespace App\Policies;
 use App\Models\Task;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
+use Illuminate\Support\Facades\Log;
 
 class TaskPolicy
 {
@@ -46,6 +47,16 @@ class TaskPolicy
 
     public function create(User $user): bool
     {
+        Log::info('TaskPolicy@create check', [
+            'user_id' => $user->id,
+            'email' => $user->email,
+            'role' => $user->role,
+            'tenant_id' => $user->tenant_id,
+            'is_superuser' => method_exists($user, 'isSuperuser') ? $user->isSuperuser() : null,
+            'has_perm_task_create' => $user->hasPermissionTo('task.create'),
+            'has_perm_task_all' => $user->hasPermissionTo('task.*'),
+        ]);
+
         if ($user->isSuperuser()) {
             return true;
         }
