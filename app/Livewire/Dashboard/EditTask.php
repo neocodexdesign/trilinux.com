@@ -224,7 +224,19 @@ class EditTask extends Component
     public function closeModal()
     {
         $this->showModal = false;
-        $this->reset();
+        $this->taskId = null;
+        $this->projectId = null;
+        $this->stageId = null;
+        $this->teamId = null;
+        $this->responsibleId = null;
+        $this->dependentTaskId = null;
+        $this->name = '';
+        $this->description = null;
+        $this->expectedStartAt = null;
+        $this->expectedEndAt = null;
+        $this->estimatedHours = null;
+        $this->stageOptions = [];
+        $this->dependencyOptions = [];
     }
 
     public function render()

@@ -31,3 +31,6 @@
 [2025-11-18 05:54:54] local.INFO: TaskPolicy@create check {"user_id":2,"email":"emiliodami@gmail.com","role":"admin","tenant_id":null,"is_superuser":false,"has_perm_task_create":true,"has_perm_task_all":true} 
 [2025-11-18 05:54:54] local.INFO: CreateTask mount attempt {"user_id":2,"user_email":"emiliodami@gmail.com","user_role":"admin","can_create":true} 
 [2025-11-18 05:54:54] local.INFO: TaskPolicy@create check {"user_id":2,"email":"emiliodami@gmail.com","role":"admin","tenant_id":null,"is_superuser":false,"has_perm_task_create":true,"has_perm_task_all":true} 
+[2025-11-18 15:30:45] local.INFO: TaskPolicy@create check {"user_id":2,"email":"emiliodami@gmail.com","role":"admin","tenant_id":null,"is_superuser":false,"has_perm_task_create":true,"has_perm_task_all":true} 
+[2025-11-18 15:30:45] local.INFO: TaskPolicy@create check {"user_id":2,"email":"emiliodami@gmail.com","role":"admin","tenant_id":null,"is_superuser":false,"has_perm_task_create":true,"has_perm_task_all":true} 
+[2025-11-18 15:30:45] local.INFO: TaskPolicy@create check {"user_id":2,"email":"emiliodami@gmail.com","role":"admin","tenant_id":null,"is_superuser":false,"has_perm_task_create":true,"has_perm_task_all":true} 
