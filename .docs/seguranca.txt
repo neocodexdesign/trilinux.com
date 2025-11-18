@@ -1,0 +1,9 @@
+Agora as permissoes:
+sudo chown -R www-data:www-data /var/www/trilinux.com/storage
+sudo chown -R www-data:www-data /var/www/trilinux.com/bootstrap/cache
+sudo find /var/www/trilinux.com/storage -type d -exec chmod 755 {} \;
+sudo find /var/www/trilinux.com/storage -type f -exec chmod 644 {} \;
+sudo find /var/www/trilinux.com/bootstrap/cache -type d -exec chmod 755 {} \;
+sudo find /var/www/trilinux.com/bootstrap/cache -type f -exec chmod 644 {} \;
+sudo find /var/www/trilinux.com/public/css/vendor -type d -exec chmod 755 {} \;
+sudo systemctl restart nginx
