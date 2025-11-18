@@ -1,7 +1,20 @@
 <x-layouts.app :title="__('Dashboard')">
+    <style>
+        @media (max-width: 768px) {
+            .dashboard-columns {
+                display: flex;
+                flex-direction: column;
+            }
+
+            .dashboard-columns > div {
+                width: 100% !important;
+                max-width: 100% !important;
+            }
+        }
+    </style>
     <div class="flex flex-col gap-4 h-full w-full max-w-full overflow-hidden">
         <!-- Seção Superior: Minhas Tarefas (3 colunas) -->
-        <div class="grid grid-cols-1 md:grid-cols-3 w-full gap-4 overflow-x-hidden md:h-1/2">
+        <div class="grid grid-cols-1 md:grid-cols-3 w-full gap-4 overflow-x-hidden md:h-1/2 dashboard-columns">
             <!-- Coluna 1: Pendentes -->
             <div class="flex w-full min-w-0 flex-col gap-4 overflow-y-auto">
                 <livewire:dashboard.pending-tasks />
