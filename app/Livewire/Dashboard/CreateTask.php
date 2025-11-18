@@ -8,7 +8,6 @@ use App\Models\User;
 use Flux\Flux;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 
 class CreateTask extends Component
@@ -35,14 +34,6 @@ class CreateTask extends Component
 
     public function mount(): void
     {
-        $user = Auth::user();
-        Log::info('CreateTask mount attempt', [
-            'user_id' => $user?->id,
-            'user_email' => $user?->email,
-            'user_role' => $user?->role,
-            'can_create' => $user ? $user->can('create', Task::class) : false,
-        ]);
-
         $this->authorize('create', Task::class);
         $this->responsibleId = Auth::id();
         $this->loadSelectOptions();
