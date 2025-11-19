@@ -4,6 +4,22 @@
         @include('partials.head')
     </head>
     <body class="min-h-screen bg-white dark:bg-zinc-800">
+        <!-- BARRA VERMELHA DE IDENTIFICAÇÃO -->
+        <div class="fixed top-0 left-0 right-0 z-[9999] bg-gradient-to-r from-red-600 via-red-500 to-red-600 text-white text-center py-3 px-4 shadow-2xl border-b-4 border-red-700">
+            <div class="flex items-center justify-center gap-3">
+                <svg class="w-6 h-6 animate-pulse" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
+                <span class="text-lg font-bold tracking-wide">✓ VERSÃO ATUALIZADA COM BOTTOM NAVIGATION - TRILINUX 2025</span>
+                <svg class="w-6 h-6 animate-pulse" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
+            </div>
+        </div>
+
+        <!-- Spacer para a barra vermelha -->
+        <div class="h-12"></div>
+
         <flux:sidebar sticky stashable class="border-e border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900">
             <flux:sidebar.toggle class="lg:hidden" icon="x-mark" />
 
