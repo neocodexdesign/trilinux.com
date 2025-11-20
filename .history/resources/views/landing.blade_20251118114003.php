@@ -49,6 +49,7 @@
                     <h1 class="text-5xl lg:text-6xl font-bold leading-tight mb-6">
                         Gerencie Múltiplas Empresas em Uma Única Plataforma
                     </h1>
+                    <p class="text-xl text-indigo-100 mb-8">
                         O sistema multitenant mais completo para gerenciar tarefas, equipes e projetos de múltiplas organizações com segurança e eficiência.
                     </p>
                     <div class="flex flex-col sm:flex-row gap-4">

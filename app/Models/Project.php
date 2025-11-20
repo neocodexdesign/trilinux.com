@@ -17,6 +17,7 @@ use App\Traits\BelongsToTenant;
 class Project extends Model
 {
     use HasFactory;
+    use BelongsToTenant;
 
     protected $fillable = [
         'tenant_id',
