@@ -14,14 +14,14 @@
         <p>Permissão para criar tarefas: <span class="{{ $canCreateTask ? 'text-green-300' : 'text-red-300' }}">{{ $canCreateTask ? 'SIM' : 'NÃO' }}</span></p>
     </div>
 
-    <div class="flex flex-col gap-4 h-full w-full max-w-full overflow-hidden">
+    <div class="flex flex-col gap-4 w-full max-w-full">
         <!-- Seção Superior: Minhas Tarefas (3 colunas) -->
         <div
-            class="w-full overflow-x-hidden"
+            class="w-full"
             style="display:flex;flex-direction:column;gap:1rem;width:100%;max-width:100%;"
         >
             <!-- Coluna 1: Pendentes -->
-            <div class="flex w-full min-w-0 flex-col gap-4 overflow-y-auto">
+            <div class="flex w-full min-w-0 flex-col gap-4">
                 @can('create', \App\Models\Task::class)
                     <livewire:dashboard.create-task />
                 @endcan
@@ -29,19 +29,19 @@
             </div>
 
             <!-- Coluna 2: Ativas -->
-            <div class="flex w-full min-w-0 flex-col gap-4 overflow-y-auto">
+            <div class="flex w-full min-w-0 flex-col gap-4">
                 <livewire:dashboard.ongoing-tasks />
             </div>
 
             <!-- Coluna 3: Pausadas e Completadas -->
-            <div class="flex w-full min-w-0 flex-col gap-4 overflow-y-auto">
+            <div class="flex w-full min-w-0 flex-col gap-4">
                 <livewire:dashboard.paused-tasks />
                 <livewire:dashboard.completed-tasks />
             </div>
         </div>
 
         <!-- Seção Inferior: Tarefas por Equipes -->
-        <div class="flex flex-col w-full gap-4 overflow-x-hidden border-t border-neutral-700/50 pt-4 md:h-1/2">
+        <div class="flex flex-col w-full gap-4 border-t border-neutral-700/50 pt-4">
             <livewire:dashboard.team-tasks />
         </div>
     </div>
