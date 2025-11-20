@@ -1,5 +1,5 @@
 <div x-data="{
-    cardExpanded: true,
+    cardExpanded: {{ $totalTasks > 0 ? 'true' : 'false' }},
     showDeleteModal: false,
     taskToDelete: null,
     taskName: '',

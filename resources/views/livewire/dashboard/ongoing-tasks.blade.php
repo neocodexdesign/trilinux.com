@@ -1,5 +1,5 @@
 <div x-data="{
-    cardExpanded: true,
+    cardExpanded: {{ $totalTasks > 0 ? 'true' : 'false' }},
     confirmingRevert: @entangle('confirmingRevert'),
     expandedProjects: {},
     expandedStages: {},

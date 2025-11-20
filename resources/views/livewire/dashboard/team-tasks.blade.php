@@ -3,7 +3,7 @@
     <div class="flex h-full w-full flex-col gap-4 overflow-hidden">
         <!-- Column 1: Pending -->
         <div class="flex w-full min-w-0 flex-col overflow-hidden" x-data="{
-            cardExpanded: true,
+            cardExpanded: {{ $totalPlanned > 0 ? 'true' : 'false' }},
             expandedProjects: {},
             expandedStages: {},
             expandedTasks: {}
@@ -153,7 +153,7 @@
 
         <!-- Column 2: Ongoing -->
         <div class="flex w-full min-w-0 flex-col overflow-hidden" x-data="{
-            cardExpanded: true,
+            cardExpanded: {{ $totalOngoing > 0 ? 'true' : 'false' }},
             confirmingRevert: @entangle('confirmingRevert'),
             expandedProjects: {},
             expandedStages: {},
@@ -374,7 +374,7 @@
         <div class="flex w-full min-w-0 flex-col gap-4 overflow-hidden">
             <!-- Paused -->
             <div class="relative flex flex-col overflow-hidden rounded-xl border border-orange-500/30 bg-gradient-to-br from-orange-950/40 to-neutral-900 shadow-lg" x-data="{
-                cardExpanded: true,
+                cardExpanded: {{ $totalPaused > 0 ? 'true' : 'false' }},
                 expandedProjects: {},
                 expandedStages: {},
                 expandedTasks: {}
@@ -525,7 +525,7 @@
 
             <!-- Completed -->
             <div class="relative flex flex-col overflow-hidden rounded-xl border border-green-500/30 bg-gradient-to-br from-green-950/40 to-neutral-900 shadow-lg" x-data="{
-                cardExpanded: true,
+                cardExpanded: {{ $totalCompleted > 0 ? 'true' : 'false' }},
                 expandedProjects: {},
                 expandedStages: {},
                 expandedTasks: {}
