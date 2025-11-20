@@ -30,7 +30,7 @@
                     </span>
                 </div>
 
-                <div x-show="cardExpanded" x-collapse class="flex-1 overflow-y-auto p-4">
+                <div x-show="cardExpanded" x-collapse class="flex-1 p-4">
                     @forelse($groupedPlanned as $index => $projectGroup)
                         @php
                             $projectId = $projectGroup['project']?->id ?? 'no-project-' . $index;
@@ -85,10 +85,11 @@
                                     <!-- Tasks in this Stage -->
                                     <div x-show="expandedStages['{{ $stageId }}']" x-collapse class="ml-4 space-y-2">
                                         @foreach($stageGroup['tasks'] as $task)
-                                            <div class="group rounded-lg bg-amber-950/20 shadow-sm backdrop-blur-sm transition-all hover:bg-amber-950/30"
+                                            <div class="group relative overflow-hidden rounded-lg bg-amber-950/20 shadow-sm backdrop-blur-sm transition-all hover:bg-amber-950/30"
                                                  x-init="expandedTasks[{{ $task->id }}] = false">
+                                                <div class="absolute inset-y-0 left-0 w-1 bg-gradient-to-b from-amber-400 to-amber-600"></div>
                                                 <!-- Task Header (sempre visível) -->
-                                                <div class="p-3 flex items-center justify-between cursor-pointer"
+                                                <div class="p-3 pl-5 flex items-center justify-between cursor-pointer"
                                                      @click="expandedTasks[{{ $task->id }}] = !expandedTasks[{{ $task->id }}]">
                                                     <div class="flex items-center gap-2 flex-1">
                                                         <!-- Ícone de expand/collapse da tarefa -->
@@ -106,7 +107,7 @@
                                                 </div>
 
                                                 <!-- Task Details (minimizável) -->
-                                                <div x-show="expandedTasks[{{ $task->id }}]" x-collapse class="px-3 pb-3">
+                                                <div x-show="expandedTasks[{{ $task->id }}]" x-collapse class="px-3 pl-5 pb-3">
                                                     @if($task->estimated_hours)
                                                         <div class="mb-3">
                                                             <div class="flex items-center gap-2 text-xs text-amber-300/70">
@@ -180,7 +181,7 @@
                     </span>
                 </div>
 
-                <div x-show="cardExpanded" x-collapse class="flex-1 overflow-y-auto p-4">
+                <div x-show="cardExpanded" x-collapse class="flex-1 p-4">
                     @forelse($groupedOngoing as $index => $projectGroup)
                         @php
                             $projectId = $projectGroup['project']?->id ?? 'no-project-ongoing-' . $index;
@@ -235,10 +236,11 @@
                                     <!-- Tasks in this Stage -->
                                     <div x-show="expandedStages['{{ $stageId }}']" x-collapse class="ml-4 space-y-2">
                                         @foreach($stageGroup['tasks'] as $task)
-                                            <div class="group rounded-lg bg-sky-950/20 shadow-sm backdrop-blur-sm transition-all hover:bg-sky-950/30"
+                                            <div class="group relative overflow-hidden rounded-lg bg-sky-950/20 shadow-sm backdrop-blur-sm transition-all hover:bg-sky-950/30"
                                                  x-init="expandedTasks[{{ $task->id }}] = false">
+                                                <div class="absolute inset-y-0 left-0 w-1 bg-gradient-to-b from-sky-400 to-sky-600"></div>
                                                 <!-- Task Header (sempre visível) -->
-                                                <div class="p-3 flex items-center justify-between cursor-pointer"
+                                                <div class="p-3 pl-5 flex items-center justify-between cursor-pointer"
                                                      @click="expandedTasks[{{ $task->id }}] = !expandedTasks[{{ $task->id }}]">
                                                     <div class="flex items-center gap-2 flex-1">
                                                         <!-- Ícone de expand/collapse da tarefa -->
@@ -259,7 +261,7 @@
                                                 </div>
 
                                                 <!-- Task Details (minimizável) -->
-                                                <div x-show="expandedTasks[{{ $task->id }}]" x-collapse class="px-3 pb-3">
+                                                <div x-show="expandedTasks[{{ $task->id }}]" x-collapse class="px-3 pl-5 pb-3">
                                                     @if($task->estimated_hours)
                                                         <div class="mb-3">
                                                             <div class="flex items-center gap-2 text-xs text-sky-300/70">
@@ -398,7 +400,7 @@
                     </span>
                 </div>
 
-                <div x-show="cardExpanded" x-collapse class="flex-1 overflow-y-auto p-4">
+                <div x-show="cardExpanded" x-collapse class="flex-1 p-4">
                     @forelse($groupedPaused as $index => $projectGroup)
                         @php
                             $projectId = $projectGroup['project']?->id ?? 'no-project-paused-' . $index;
@@ -453,10 +455,11 @@
                                     <!-- Tasks in this Stage -->
                                     <div x-show="expandedStages['{{ $stageId }}']" x-collapse class="ml-4 space-y-2">
                                         @foreach($stageGroup['tasks'] as $task)
-                                            <div class="group rounded-lg bg-orange-950/20 shadow-sm backdrop-blur-sm transition-all hover:bg-orange-950/30"
+                                            <div class="group relative overflow-hidden rounded-lg bg-orange-950/20 shadow-sm backdrop-blur-sm transition-all hover:bg-orange-950/30"
                                                  x-init="expandedTasks[{{ $task->id }}] = false">
+                                                <div class="absolute inset-y-0 left-0 w-1 bg-gradient-to-b from-orange-400 to-orange-600"></div>
                                                 <!-- Task Header (sempre visível) -->
-                                                <div class="p-3 flex items-center justify-between cursor-pointer"
+                                                <div class="p-3 pl-5 flex items-center justify-between cursor-pointer"
                                                      @click="expandedTasks[{{ $task->id }}] = !expandedTasks[{{ $task->id }}]">
                                                     <div class="flex items-center gap-2 flex-1">
                                                         <!-- Ícone de expand/collapse da tarefa -->
@@ -477,7 +480,7 @@
                                                 </div>
 
                                                 <!-- Task Details (minimizável) -->
-                                                <div x-show="expandedTasks[{{ $task->id }}]" x-collapse class="px-3 pb-3">
+                                                <div x-show="expandedTasks[{{ $task->id }}]" x-collapse class="px-3 pl-5 pb-3">
                                                     @if($task->estimated_hours)
                                                         <div class="mb-3">
                                                             <div class="flex items-center gap-2 text-xs text-orange-300/70">
@@ -548,7 +551,7 @@
                     </span>
                 </div>
 
-                <div x-show="cardExpanded" x-collapse class="flex-1 overflow-y-auto p-4">
+                <div x-show="cardExpanded" x-collapse class="flex-1 p-4">
                     @forelse($groupedCompleted as $index => $projectGroup)
                         @php
                             $projectId = $projectGroup['project']?->id ?? 'no-project-completed-' . $index;
@@ -603,10 +606,11 @@
                                     <!-- Tasks in this Stage -->
                                     <div x-show="expandedStages['{{ $stageId }}']" x-collapse class="ml-4 space-y-2">
                                         @foreach($stageGroup['tasks'] as $task)
-                                            <div class="group rounded-lg bg-green-950/20 shadow-sm backdrop-blur-sm transition-all hover:bg-green-950/30"
+                                            <div class="group relative overflow-hidden rounded-lg bg-green-950/20 shadow-sm backdrop-blur-sm transition-all hover:bg-green-950/30"
                                                  x-init="expandedTasks[{{ $task->id }}] = false">
+                                                <div class="absolute inset-y-0 left-0 w-1 bg-gradient-to-b from-green-400 to-green-600"></div>
                                                 <!-- Task Header (sempre visível) -->
-                                                <div class="p-3 flex items-center justify-between cursor-pointer"
+                                                <div class="p-3 pl-5 flex items-center justify-between cursor-pointer"
                                                      @click="expandedTasks[{{ $task->id }}] = !expandedTasks[{{ $task->id }}]">
                                                     <div class="flex items-center gap-2 flex-1">
                                                         <!-- Ícone de expand/collapse da tarefa -->
@@ -624,7 +628,7 @@
                                                 </div>
 
                                                 <!-- Task Details (minimizável) -->
-                                                <div x-show="expandedTasks[{{ $task->id }}]" x-collapse class="px-3 pb-3">
+                                                <div x-show="expandedTasks[{{ $task->id }}]" x-collapse class="px-3 pl-5 pb-3">
                                                     @if($task->estimated_hours)
                                                         <div class="flex items-center gap-2 text-xs text-green-300/70">
                                                             <span class="flex items-center gap-1">
