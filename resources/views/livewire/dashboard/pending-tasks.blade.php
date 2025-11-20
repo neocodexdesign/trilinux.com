@@ -1,6 +1,35 @@
-<div x-data="{ showDeleteModal: false, taskToDelete: null, taskName: '' }" class="relative flex flex-col overflow-hidden rounded-xl border border-amber-500/30 bg-gradient-to-br from-amber-950/40 to-neutral-900 shadow-lg dark:border-amber-600/20">
-    <div class="flex items-center justify-between border-b border-amber-500/20 bg-amber-950/30 px-4 py-3 backdrop-blur-sm">
+<div x-data="{
+    cardExpanded: true,
+    showDeleteModal: false,
+    taskToDelete: null,
+    taskName: '',
+    expandedProjects: {},
+    expandedStages: {},
+    expandedTasks: {},
+    toggleCard() {
+        this.cardExpanded = !this.cardExpanded;
+    },
+    toggleProject(projectId) {
+        this.expandedProjects[projectId] = !this.expandedProjects[projectId];
+    },
+    toggleStage(stageId) {
+        this.expandedStages[stageId] = !this.expandedStages[stageId];
+    },
+    toggleTask(taskId) {
+        this.expandedTasks[taskId] = !this.expandedTasks[taskId];
+    }
+}" class="relative flex flex-col overflow-hidden rounded-xl border border-amber-500/30 bg-gradient-to-br from-amber-950/40 to-neutral-900 shadow-lg dark:border-amber-600/20">
+    <div class="flex items-center justify-between border-b border-amber-500/20 bg-amber-950/30 px-4 py-3 backdrop-blur-sm cursor-pointer hover:bg-amber-950/40 transition-colors"
+         @click="toggleCard()">
         <div class="flex items-center gap-2">
+            <!-- Ícone de expand/collapse do card -->
+            <svg x-show="cardExpanded" class="size-4 text-amber-400 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
+            <svg x-show="!cardExpanded" class="size-4 text-amber-400 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+
             <svg class="size-5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
             </svg>
@@ -11,46 +40,92 @@
         </span>
     </div>
 
-    <div class="flex-1 overflow-y-auto p-4">
-        @forelse($groupedTasks as $projectGroup)
+    <div x-show="cardExpanded"
+         x-collapse
+         class="flex-1 overflow-y-auto p-4">
+        @forelse($groupedTasks as $index => $projectGroup)
+            @php
+                $projectId = $projectGroup['project']?->id ?? 'no-project-' . $index;
+            @endphp
             <!-- Project Header -->
-            <div class="mb-4 last:mb-0">
-                <div class="mb-2 flex items-center gap-2 border-b border-amber-500/20 pb-2">
+            <div class="mb-4 last:mb-0"
+                 x-data="{ projectExpanded: true }"
+                 x-init="expandedProjects['{{ $projectId }}'] = true">
+                <div class="mb-2 flex items-center gap-2 border-b border-amber-500/20 pb-2 cursor-pointer hover:bg-amber-950/10 transition-colors rounded px-2 py-1"
+                     @click="expandedProjects['{{ $projectId }}'] = !expandedProjects['{{ $projectId }}']">
+                    <!-- Ícone de expand/collapse do projeto -->
+                    <svg x-show="expandedProjects['{{ $projectId }}']" class="size-3.5 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                    </svg>
+                    <svg x-show="!expandedProjects['{{ $projectId }}']" class="size-3.5 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                    </svg>
+
                     <svg class="size-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/>
                     </svg>
                     <h4 class="text-sm font-semibold text-amber-200">
                         {{ $projectGroup['project']?->name ?? 'No Project' }}
                     </h4>
+                    <span class="ml-auto text-xs text-amber-400/60">({{ count($projectGroup['stages']) }} stages)</span>
                 </div>
 
-                @foreach($projectGroup['stages'] as $stageGroup)
+                <div x-show="expandedProjects['{{ $projectId }}']" x-collapse>
+                @foreach($projectGroup['stages'] as $stageIndex => $stageGroup)
+                    @php
+                        $stageId = $stageGroup['stage']?->id ?? 'no-stage-' . $projectId . '-' . $stageIndex;
+                    @endphp
                     <!-- Stage Header -->
-                    <div class="mb-3 ml-4">
-                        <div class="mb-2 flex items-center gap-2">
+                    <div class="mb-3 ml-4" x-init="expandedStages['{{ $stageId }}'] = false">
+                        <div class="mb-2 flex items-center gap-2 cursor-pointer hover:bg-amber-950/10 transition-colors rounded px-2 py-1"
+                             @click="expandedStages['{{ $stageId }}'] = !expandedStages['{{ $stageId }}']">
+                            <!-- Ícone de expand/collapse do estágio -->
+                            <svg x-show="expandedStages['{{ $stageId }}']" class="size-3 text-amber-400/70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                            </svg>
+                            <svg x-show="!expandedStages['{{ $stageId }}']" class="size-3 text-amber-400/70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                            </svg>
+
                             <svg class="size-3.5 text-amber-400/70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
                             </svg>
                             <h5 class="text-xs font-medium text-amber-300/80">
                                 {{ $stageGroup['stage']?->name ?? 'No Stage' }}
                             </h5>
+                            <span class="ml-auto text-xs text-amber-400/50">({{ count($stageGroup['tasks']) }} tasks)</span>
                         </div>
 
                         <!-- Tasks in this Stage -->
-                        <div class="ml-4 space-y-2">
+                        <div x-show="expandedStages['{{ $stageId }}']" x-collapse class="ml-4 space-y-2">
                             @foreach($stageGroup['tasks'] as $task)
-                                <div class="group relative overflow-hidden rounded-lg bg-amber-950/20 shadow-sm backdrop-blur-sm transition-all hover:bg-amber-950/30">
+                                <div class="group relative overflow-hidden rounded-lg bg-amber-950/20 shadow-sm backdrop-blur-sm transition-all hover:bg-amber-950/30"
+                                     x-data="{ taskExpanded: false }"
+                                     x-init="expandedTasks[{{ $task->id }}] = false">
                                     <!-- Colored vertical bar -->
                                     <div class="absolute inset-y-0 left-0 w-1 bg-gradient-to-b from-amber-400 to-amber-600"></div>
 
-                                    <div class="p-3 pl-5 flex items-center justify-between">
-                                        <div class="flex-1">
-                                            <div class="mb-1">
-                                                <h6 class="text-sm font-medium text-amber-50">
-                                                    {{ $task->name }}
-                                                </h6>
-                                            </div>
+                                    <!-- Task Header (sempre visível) -->
+                                    <div class="p-3 pl-5 flex items-center justify-between cursor-pointer"
+                                         @click="expandedTasks[{{ $task->id }}] = !expandedTasks[{{ $task->id }}]">
+                                        <div class="flex items-center gap-2 flex-1">
+                                            <!-- Ícone de expand/collapse da tarefa -->
+                                            <svg x-show="expandedTasks[{{ $task->id }}]" class="size-3 text-amber-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                                            </svg>
+                                            <svg x-show="!expandedTasks[{{ $task->id }}]" class="size-3 text-amber-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                                            </svg>
 
+                                            <h6 class="text-sm font-medium text-amber-50">
+                                                {{ $task->name }}
+                                            </h6>
+                                        </div>
+                                    </div>
+
+                                    <!-- Task Details (minimizável) -->
+                                    <div x-show="expandedTasks[{{ $task->id }}]" x-collapse class="px-3 pb-3 pl-5">
+                                        <div class="mb-3">
                                             <div class="flex items-center gap-2 text-xs text-amber-300/70">
                                                 @if($task->expected_start_at)
                                                     <span class="flex items-center gap-1">
@@ -72,10 +147,12 @@
                                             </div>
                                         </div>
 
-                                        <div class="flex items-center gap-2">
+                                        <!-- Botões de Ação (só aparecem quando expandido) -->
+                                        <div class="flex items-center gap-2 mt-3 pt-3 border-t border-amber-500/20">
                                             <!-- Botão Editar -->
                                             <button
                                                 wire:click.stop="editTask({{ $task->id }})"
+                                                @click.stop
                                                 class="rounded-lg bg-blue-600 p-2 text-white transition-all hover:bg-blue-500 active:scale-95"
                                                 title="Editar tarefa">
                                                 <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -96,6 +173,7 @@
                                             <!-- Botão Iniciar -->
                                             <button
                                                 wire:click.stop="startTask({{ $task->id }})"
+                                                @click.stop
                                                 class="rounded-lg bg-amber-500 p-2 text-neutral-900 transition-all hover:bg-amber-400 active:scale-95"
                                                 title="Iniciar tarefa">
                                                 <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -110,6 +188,7 @@
                         </div>
                     </div>
                 @endforeach
+                </div>
             </div>
         @empty
             <div class="flex h-32 items-center justify-center text-center">
