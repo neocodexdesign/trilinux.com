@@ -1,8 +1,8 @@
 <div class="h-full w-full">
     @if($selectedTeam)
-    <div class="flex h-full w-full flex-col gap-4 overflow-hidden md:flex-row">
+    <div class="flex h-full w-full flex-col gap-4 overflow-hidden">
         <!-- Column 1: Pending -->
-        <div class="flex w-full min-w-0 flex-col overflow-hidden md:w-1/3 md:max-w-[33.333%]" x-data="{
+        <div class="flex w-full min-w-0 flex-col overflow-hidden" x-data="{
             cardExpanded: true,
             expandedProjects: {},
             expandedStages: {},
@@ -152,7 +152,7 @@
         </div>
 
         <!-- Column 2: Ongoing -->
-        <div class="flex w-full min-w-0 flex-col overflow-hidden md:w-1/3 md:max-w-[33.333%]" x-data="{
+        <div class="flex w-full min-w-0 flex-col overflow-hidden" x-data="{
             cardExpanded: true,
             confirmingRevert: @entangle('confirmingRevert'),
             expandedProjects: {},
@@ -371,7 +371,7 @@
         </div>
 
         <!-- Column 3: Paused & Completed -->
-        <div class="flex w-full min-w-0 flex-col gap-4 overflow-y-auto md:w-1/3 md:max-w-[33.333%]">
+        <div class="flex w-full min-w-0 flex-col gap-4 overflow-hidden">
             <!-- Paused -->
             <div class="relative flex flex-col overflow-hidden rounded-xl border border-orange-500/30 bg-gradient-to-br from-orange-950/40 to-neutral-900 shadow-lg" x-data="{
                 cardExpanded: true,
