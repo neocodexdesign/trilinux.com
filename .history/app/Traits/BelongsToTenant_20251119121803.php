@@ -28,7 +28,7 @@ trait BelongsToTenant
 
         // Apply global scope to filter by tenant
         static::addGlobalScope('tenant', function (Builder $builder) {
-            $tenant = tenant();
+            $tenant = Tenancy::getTenant();
             if ($tenant) {
                 $builder->where('tenant_id', $tenant->getTenantKey());
                 return;
