@@ -99,14 +99,11 @@
                         <!-- Tasks in this Stage -->
                         <div x-show="expandedStages['{{ $stageId }}']" x-collapse class="ml-4 space-y-2">
                             @foreach($stageGroup['tasks'] as $task)
-                                <div class="group relative overflow-hidden rounded-lg bg-amber-950/20 shadow-sm backdrop-blur-sm transition-all hover:bg-amber-950/30"
+                                <div class="group rounded-lg bg-amber-950/20 shadow-sm backdrop-blur-sm transition-all hover:bg-amber-950/30"
                                      x-data="{ taskExpanded: false }"
                                      x-init="expandedTasks[{{ $task->id }}] = false">
-                                    <!-- Colored vertical bar -->
-                                    <div class="absolute inset-y-0 left-0 w-1 bg-gradient-to-b from-amber-400 to-amber-600"></div>
-
                                     <!-- Task Header (sempre visível) -->
-                                    <div class="p-3 pl-5 flex items-center justify-between cursor-pointer"
+                                    <div class="p-3 flex items-center justify-between cursor-pointer"
                                          @click="expandedTasks[{{ $task->id }}] = !expandedTasks[{{ $task->id }}]">
                                         <div class="flex items-center gap-2 flex-1">
                                             <!-- Ícone de expand/collapse da tarefa -->
@@ -124,7 +121,7 @@
                                     </div>
 
                                     <!-- Task Details (minimizável) -->
-                                    <div x-show="expandedTasks[{{ $task->id }}]" x-collapse class="px-3 pb-3 pl-5">
+                                    <div x-show="expandedTasks[{{ $task->id }}]" x-collapse class="px-3 pb-3">
                                         <div class="mb-3">
                                             <div class="flex items-center gap-2 text-xs text-amber-300/70">
                                                 @if($task->expected_start_at)
