@@ -15,7 +15,7 @@ trait BelongsToTenant
                 return;
             }
 
-            $tenant = tenant();
+            $tenant = tenancy();
             if ($tenant) {
                 $model->tenant_id = $tenant->getTenantKey();
                 return;
