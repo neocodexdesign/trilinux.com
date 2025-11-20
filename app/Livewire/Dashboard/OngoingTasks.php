@@ -105,6 +105,32 @@ class OngoingTasks extends Component
         }
     }
 
+    public function completeTask($taskId)
+    {
+        $task = auth()->user()
+            ->assignedTasks()
+            ->where('id', $taskId)
+            ->whereIn('status', ['in_progress', 'paused'])
+            ->first();
+
+        if (!$task) {
+            Flux::toast('Tarefa não encontrada', variant: 'danger');
+            return;
+        }
+
+        try {
+            $completed = $task->complete();
+            if ($completed) {
+                Flux::toast('Tarefa concluída com sucesso', variant: 'success');
+                return $this->redirect(route('dashboard'), navigate: true);
+            } else {
+                Flux::toast('Não foi possível concluir a tarefa', variant: 'danger');
+            }
+        } catch (\Exception $e) {
+            Flux::toast('Erro ao concluir tarefa: ' . $e->getMessage(), variant: 'danger');
+        }
+    }
+
     public function render()
     {
         $tasks = auth()->user()
