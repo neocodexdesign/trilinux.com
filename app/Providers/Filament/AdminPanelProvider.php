@@ -7,6 +7,7 @@ use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Filament\Navigation\MenuItem;
+use Filament\Navigation\NavigationItem;
 use Filament\Pages\Dashboard;
 use Filament\Panel;
 use Filament\PanelProvider;
@@ -46,7 +47,14 @@ class AdminPanelProvider extends PanelProvider
                 MenuItem::make()
                     ->label('Dashboard Principal')
                     ->url('/dashboard')
-                    ->icon('heroicon-o-view-columns'),
+                    ->icon('heroicon-o-home'),
+            ])
+            ->navigationItems([
+                NavigationItem::make('Voltar ao Dashboard')
+                    ->url('/dashboard')
+                    ->icon('heroicon-o-arrow-left-circle')
+                    ->sort(-1)
+                    ->group('Sistema'),
             ])
             ->middleware([
                 EncryptCookies::class,

@@ -6,6 +6,8 @@ use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
+use Filament\Navigation\MenuItem;
+use Filament\Navigation\NavigationItem;
 use Filament\Pages\Dashboard;
 use Filament\Panel;
 use Filament\PanelProvider;
@@ -40,6 +42,20 @@ class TenantPanelProvider extends PanelProvider
             ->pages([Dashboard::class])
             ->discoverWidgets(app_path('Filament/Tenant/Widgets'), 'App\\Filament\\Tenant\\Widgets')
             ->widgets([AccountWidget::class, FilamentInfoWidget::class])
+
+            ->userMenuItems([
+                MenuItem::make()
+                    ->label('Dashboard Principal')
+                    ->url('/dashboard')
+                    ->icon('heroicon-o-home'),
+            ])
+            ->navigationItems([
+                NavigationItem::make('Voltar ao Dashboard')
+                    ->url('/dashboard')
+                    ->icon('heroicon-o-arrow-left-circle')
+                    ->sort(-1)
+                    ->group('Sistema'),
+            ])
 
             // 🔑 Tenancy antes do stack web/Filament
             ->middleware([
