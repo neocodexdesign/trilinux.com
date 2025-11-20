@@ -147,6 +147,16 @@
                                                 </button>
                                             @endif
 
+                                            <button
+                                                wire:click.stop="completeTask({{ $task->id }})"
+                                                @click.stop
+                                                class="rounded bg-emerald-500/30 p-2 text-white transition-all hover:bg-emerald-500/50 active:scale-95"
+                                                title="Concluir">
+                                                <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                                                </svg>
+                                            </button>
+
                                             @if($isActive)
                                                 <button
                                                     wire:click.stop="pauseTask({{ $task->id }})"
