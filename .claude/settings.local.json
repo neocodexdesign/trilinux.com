@@ -5,7 +5,8 @@
       "Bash(php artisan:*)",
       "Bash(composer show:*)",
       "Bash(composer require:*)",
-      "Bash(composer dump-autoload:*)"
+      "Bash(composer dump-autoload:*)",
+      "Bash(cat:*)"
     ],
     "deny": [],
     "ask": []
