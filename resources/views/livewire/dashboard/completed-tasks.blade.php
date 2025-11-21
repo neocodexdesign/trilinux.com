@@ -124,6 +124,46 @@
                                                 @endif
                                             </div>
                                         </div>
+
+                                        <!-- Botões de Notas e Anexos -->
+                                        <div class="flex flex-wrap gap-2 mt-3 pt-3 border-t border-green-500/20">
+                                            @php
+                                                $notesCount = $task->notes()->count();
+                                                $attachmentsCount = $task->attachments()->count();
+                                            @endphp
+
+                                            <!-- Botão Notas -->
+                                            <button
+                                                wire:click.stop="$dispatch('open-task-notes', { taskId: {{ $task->id }} })"
+                                                @click.stop
+                                                class="relative rounded bg-amber-500/30 p-2 text-white transition-all hover:bg-amber-500/50 active:scale-95"
+                                                title="Notas">
+                                                <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+                                                </svg>
+                                                @if($notesCount > 0)
+                                                    <span class="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-amber-500 text-[10px] font-bold text-white">
+                                                        {{ $notesCount }}
+                                                    </span>
+                                                @endif
+                                            </button>
+
+                                            <!-- Botão Anexos -->
+                                            <button
+                                                wire:click.stop="$dispatch('open-task-attachments', { taskId: {{ $task->id }} })"
+                                                @click.stop
+                                                class="relative rounded bg-purple-500/30 p-2 text-white transition-all hover:bg-purple-500/50 active:scale-95"
+                                                title="Anexos">
+                                                <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"/>
+                                                </svg>
+                                                @if($attachmentsCount > 0)
+                                                    <span class="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-purple-500 text-[10px] font-bold text-white">
+                                                        {{ $attachmentsCount }}
+                                                    </span>
+                                                @endif
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             @endforeach

@@ -48,4 +48,8 @@
 
     <!-- Modal de Edição de Tarefa -->
     <livewire:dashboard.edit-task />
+
+    <!-- Modais de Notas e Anexos -->
+    <livewire:dashboard.task-notes />
+    <livewire:dashboard.task-attachments />
 </x-layouts.app>
