@@ -82,6 +82,16 @@
                                             </p>
                                         @endif
 
+                                        <!-- Media Icons -->
+                                        @php
+                                            $media = $task->getMediaSummary();
+                                        @endphp
+                                        @if($media['total'] > 0)
+                                            <div class="flex items-center gap-1.5 mb-3" wire:click.stop>
+                                                <x-task-media-icons :task="$task" />
+                                            </div>
+                                        @endif
+
                                         <div class="flex items-center justify-between gap-3">
                                             <div class="flex items-center gap-3 text-xs text-{{ $statusColor }}-300/70">
                                             @if($task->started_at)
@@ -128,11 +138,43 @@
                                             <div class="flex gap-2">
                                                 @php
                                                     $activeTime = $task->taskTimes->where('user_id', auth()->id())->whereNull('ended_at')->first();
+                                                    $notesCount = $task->notes()->count();
+                                                    $attachmentsCount = $task->attachments()->count();
                                                 @endphp
+
+                                                <!-- Botão Notas -->
+                                                <button
+                                                    wire:click.stop="$dispatch('open-task-notes', { taskId: {{ $task->id }} })"
+                                                    class="relative rounded bg-amber-500/15 p-2 text-white/70 transition-all hover:bg-amber-500/30 hover:text-white active:scale-95"
+                                                    title="Notas">
+                                                    <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+                                                    </svg>
+                                                    @if($notesCount > 0)
+                                                        <span class="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-amber-500 text-[10px] font-bold text-white">
+                                                            {{ $notesCount }}
+                                                        </span>
+                                                    @endif
+                                                </button>
+
+                                                <!-- Botão Anexos -->
+                                                <button
+                                                    wire:click.stop="$dispatch('open-task-attachments', { taskId: {{ $task->id }} })"
+                                                    class="relative rounded bg-purple-500/15 p-2 text-white/70 transition-all hover:bg-purple-500/30 hover:text-white active:scale-95"
+                                                    title="Anexos">
+                                                    <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"/>
+                                                    </svg>
+                                                    @if($attachmentsCount > 0)
+                                                        <span class="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-purple-500 text-[10px] font-bold text-white">
+                                                            {{ $attachmentsCount }}
+                                                        </span>
+                                                    @endif
+                                                </button>
 
                                                 <button
                                                     wire:click.stop="completeTask({{ $task->id }})"
-                                                    class="rounded bg-emerald-500/30 p-2 text-white transition-all hover:bg-emerald-500/50 active:scale-95"
+                                                    class="rounded bg-emerald-500/15 p-2 text-white/70 transition-all hover:bg-emerald-500/30 hover:text-white active:scale-95"
                                                     title="Concluir">
                                                     <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
@@ -142,16 +184,18 @@
                                                 @if($activeTime)
                                                     <button
                                                         wire:click.stop="confirmRevert({{ $task->id }})"
-                                                        class="rounded bg-red-500/30 px-2 py-1 text-xl transition-all hover:bg-red-500/50 active:scale-95"
+                                                        class="rounded bg-red-500/15 p-2 text-white/70 transition-all hover:bg-red-500/30 hover:text-white active:scale-95"
                                                         title="Desfazer início">
-                                                        ↩️
+                                                        <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6"/>
+                                                        </svg>
                                                     </button>
                                                 @endif
 
                                                 @if($isActive)
                                                     <button
                                                         wire:click.stop="pauseTask({{ $task->id }})"
-                                                        class="rounded bg-orange-500/30 p-2 text-white transition-all hover:bg-orange-500/50 active:scale-95"
+                                                        class="rounded bg-orange-500/15 p-2 text-white/70 transition-all hover:bg-orange-500/30 hover:text-white active:scale-95"
                                                         title="Pausar">
                                                         <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
@@ -160,7 +204,7 @@
                                                 @else
                                                     <button
                                                         wire:click.stop="resumeTask({{ $task->id }})"
-                                                        class="rounded bg-green-500/30 p-2 text-white transition-all hover:bg-green-500/50 active:scale-95"
+                                                        class="rounded bg-green-500/15 p-2 text-white/70 transition-all hover:bg-green-500/30 hover:text-white active:scale-95"
                                                         title="Retomar">
                                                         <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/>
