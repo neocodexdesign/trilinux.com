@@ -33,9 +33,10 @@
                 wire:click.self="closeModal"
             >
                 <div
-                    class="w-full max-w-6xl rounded-[32px] border border-white/10 bg-gradient-to-br from-[#05070f] to-[#0c1226] shadow-2xl outline outline-1 outline-[#1a213c]"
+                    class="relative w-full max-w-6xl rounded-[32px] border border-white/10 bg-gradient-to-br from-[#05070f] to-[#0c1226] shadow-2xl outline outline-1 outline-[#1a213c]"
                     wire:click.stop
                 >
+                    <div class="absolute inset-x-6 top-0 h-1 rounded-t-[32px] bg-red-500"></div>
                     <div class="flex flex-col gap-6 px-8 py-6">
                         <div class="flex items-start justify-between gap-6">
                             <div>
