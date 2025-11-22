@@ -1,17 +1,7 @@
 <x-layouts.app :title="__('Dashboard')">
-    @php
-        $loggedUser = auth()->user();
-        $canCreateTask = $loggedUser?->can('create', \App\Models\Task::class);
-    @endphp
-
     <!-- Logo no topo -->
     <div class="mb-6 flex items-center justify-center">
         <img src="{{ asset('images/logo/logo_main.png') }}" alt="Trilinux Logo" class="h-16 w-auto" />
-    </div>
-
-    <div class="mb-4 rounded-xl border border-amber-500/50 bg-amber-950/40 px-4 py-3 text-sm text-amber-100">
-        <p><strong>Debug Usuário:</strong> {{ $loggedUser?->email }} | Role: {{ $loggedUser?->role }} | Tenant: {{ $loggedUser?->tenant_id }}</p>
-        <p>Permissão para criar tarefas: <span class="{{ $canCreateTask ? 'text-green-300' : 'text-red-300' }}">{{ $canCreateTask ? 'SIM' : 'NÃO' }}</span></p>
     </div>
 
     <div class="flex flex-col gap-4 w-full max-w-full">
