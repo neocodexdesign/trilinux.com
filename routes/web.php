@@ -49,7 +49,13 @@ Route::middleware(['auth'])->group(function () {
     // Attachments
     Route::get('attachments/{attachment}/download', function ($attachmentId) {
         $attachment = \App\Models\Attachment::findOrFail($attachmentId);
-        return \Illuminate\Support\Facades\Storage::download('attachments/' . $attachment->stored_filename, $attachment->filename);
+        $path = storage_path('app/public/attachments/' . $attachment->stored_filename);
+
+        if (!file_exists($path)) {
+            abort(404, 'Arquivo não encontrado');
+        }
+
+        return response()->download($path, $attachment->filename);
     })->name('attachments.download');
 
     // Settings Routes
