@@ -7,4 +7,9 @@
             <livewire:tasks.my-active-tasks />
         </div>
     </div>
+
+    <!-- Modais de Notas e Anexos -->
+    <livewire:dashboard.task-notes />
+    <livewire:dashboard.task-attachments />
+    <livewire:dashboard.video-player />
 </x-layouts.app>
