@@ -153,7 +153,7 @@
                                             <button
                                                 wire:click.stop="$dispatch('open-task-notes', { taskId: {{ $task->id }} })"
                                                 @click.stop
-                                                class="relative rounded bg-amber-500/30 p-2 text-white transition-all hover:bg-amber-500/50 active:scale-95"
+                                                class="relative rounded bg-amber-500/15 p-2 text-white/70 transition-all hover:bg-amber-500/30 hover:text-white active:scale-95"
                                                 title="Notas">
                                                 <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
@@ -169,7 +169,7 @@
                                             <button
                                                 wire:click.stop="$dispatch('open-task-attachments', { taskId: {{ $task->id }} })"
                                                 @click.stop
-                                                class="relative rounded bg-purple-500/30 p-2 text-white transition-all hover:bg-purple-500/50 active:scale-95"
+                                                class="relative rounded bg-purple-500/15 p-2 text-white/70 transition-all hover:bg-purple-500/30 hover:text-white active:scale-95"
                                                 title="Anexos">
                                                 <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"/>
@@ -187,7 +187,7 @@
                                                 <button
                                                     wire:click.stop="confirmRevert({{ $task->id }})"
                                                     @click.stop
-                                                    class="rounded bg-red-500/30 px-2 py-1 text-xl transition-all hover:bg-red-500/50 active:scale-95"
+                                                    class="rounded bg-red-500/15 px-2 py-1 text-xl transition-all hover:bg-red-500/30 active:scale-95"
                                                     title="Desfazer início">
                                                     ↩️
                                                 </button>
@@ -196,7 +196,7 @@
                                             <button
                                                 wire:click.stop="completeTask({{ $task->id }})"
                                                 @click.stop
-                                                class="rounded bg-emerald-500/30 p-2 text-white transition-all hover:bg-emerald-500/50 active:scale-95"
+                                                class="rounded bg-emerald-500/15 p-2 text-white/70 transition-all hover:bg-emerald-500/30 hover:text-white active:scale-95"
                                                 title="Concluir">
                                                 <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
@@ -207,7 +207,7 @@
                                                 <button
                                                     wire:click.stop="pauseTask({{ $task->id }})"
                                                     @click.stop
-                                                    class="rounded bg-orange-500/30 p-2 text-white transition-all hover:bg-orange-500/50 active:scale-95"
+                                                    class="rounded bg-orange-500/15 p-2 text-white/70 transition-all hover:bg-orange-500/30 hover:text-white active:scale-95"
                                                     title="Pausar">
                                                     <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
@@ -217,7 +217,7 @@
                                                 <button
                                                     wire:click.stop="resumeTask({{ $task->id }})"
                                                     @click.stop
-                                                    class="rounded bg-green-500/30 p-2 text-white transition-all hover:bg-green-500/50 active:scale-95"
+                                                    class="rounded bg-green-500/15 p-2 text-white/70 transition-all hover:bg-green-500/30 hover:text-white active:scale-95"
                                                     title="Retomar">
                                                     <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/>

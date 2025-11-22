@@ -11,6 +11,7 @@ use Livewire\Component;
 class TaskNotes extends Component
 {
     public bool $showModal = false;
+    public bool $showCreateModal = false;
     public ?int $taskId = null;
     public ?string $taskName = null;
     public string $newNoteContent = '';
@@ -30,6 +31,17 @@ class TaskNotes extends Component
         $this->taskId = $taskId;
         $this->taskName = $task->name;
         $this->showModal = true;
+    }
+
+    public function openCreateModal()
+    {
+        $this->showCreateModal = true;
+    }
+
+    public function closeCreateModal()
+    {
+        $this->showCreateModal = false;
+        $this->newNoteContent = '';
     }
 
     public function createNote()
@@ -53,6 +65,7 @@ class TaskNotes extends Component
         ]);
 
         $this->newNoteContent = '';
+        $this->showCreateModal = false;
         Flux::toast('Nota criada com sucesso', variant: 'success');
     }
 
@@ -138,6 +151,7 @@ class TaskNotes extends Component
     public function closeModal()
     {
         $this->showModal = false;
+        $this->showCreateModal = false;
         $this->taskId = null;
         $this->taskName = null;
         $this->newNoteContent = '';

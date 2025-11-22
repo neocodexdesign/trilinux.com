@@ -12,6 +12,7 @@
 @endphp
 
 <div>
+    {{-- Modal Principal: Lista de Notas --}}
     @if($showModal)
         <div
             class="fixed inset-0 z-[9999] flex items-center justify-center bg-black/70 p-4"
@@ -35,33 +36,26 @@
                             <h3 class="text-2xl font-black text-white">Notas da Tarefa</h3>
                             <p class="text-sm text-white/60">{{ $taskName }}</p>
                         </div>
-                        <button
-                            wire:click="closeModal"
-                            class="flex items-center justify-center size-10 rounded-lg bg-red-600 text-white transition hover:bg-red-500"
-                            title="Fechar"
-                        >
-                            <svg class="size-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-                            </svg>
-                        </button>
-                    </div>
-
-                    <!-- New Note Form -->
-                    <div class="rounded-[24px] border border-white/10 bg-white/5 p-5 shadow-inner backdrop-blur">
-                        <p class="text-xs font-semibold uppercase text-white/70 tracking-[0.4em]">Nova nota</p>
-                        <textarea
-                            wire:model="newNoteContent"
-                            rows="3"
-                            class="mt-3 w-full rounded-[16px] border border-white/10 bg-black/60 px-4 py-3 text-base text-white placeholder-white/40 focus:border-amber-500 focus:outline-none"
-                            placeholder="Escreva sua nota aqui..."
-                        ></textarea>
-
-                        <div class="mt-4 flex justify-end">
+                        <div class="flex items-center gap-2">
+                            <!-- Botao Nova Nota -->
                             <button
-                                wire:click="createNote"
-                                class="rounded-[12px] bg-amber-500 px-5 py-2.5 text-sm font-bold uppercase tracking-wider text-white shadow-lg transition hover:bg-amber-400"
+                                wire:click="openCreateModal"
+                                class="flex items-center justify-center size-10 rounded-lg bg-emerald-600 text-white transition hover:bg-emerald-500"
+                                title="Nova Nota"
                             >
-                                + Adicionar Nota
+                                <svg class="size-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                                </svg>
+                            </button>
+                            <!-- Botao Fechar -->
+                            <button
+                                wire:click="closeModal"
+                                class="flex items-center justify-center size-10 rounded-lg bg-red-600 text-white transition hover:bg-red-500"
+                                title="Fechar"
+                            >
+                                <svg class="size-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                                </svg>
                             </button>
                         </div>
                     </div>
@@ -159,7 +153,7 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
                                 </svg>
                                 <p class="text-sm text-white/50">Nenhuma nota ainda</p>
-                                <p class="text-xs text-white/30">Adicione a primeira nota acima</p>
+                                <p class="text-xs text-white/30">Clique no botao + para adicionar</p>
                             </div>
                         @endforelse
                     </div>
@@ -173,6 +167,81 @@
                         >
                             Fechar
                         </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
+
+    {{-- Modal Secundario: Criar Nova Nota --}}
+    @if($showCreateModal)
+        <div
+            class="fixed inset-0 z-[10000] flex items-center justify-center bg-black/80 p-4"
+            wire:click.self="closeCreateModal"
+            x-data
+            @keydown.escape.window="$wire.closeCreateModal()"
+        >
+            <div
+                class="relative w-full max-w-lg rounded-[24px] border border-white/10 bg-gradient-to-br from-[#0a0f1a] to-[#151d2e] shadow-2xl"
+                wire:click.stop
+            >
+                <!-- Top accent bar -->
+                <div class="absolute inset-x-4 top-0 h-1 rounded-t-[24px] bg-emerald-500"></div>
+
+                <div class="p-6">
+                    <!-- Header -->
+                    <div class="flex items-start justify-between gap-4 mb-6">
+                        <div>
+                            <p class="text-xs font-semibold uppercase tracking-[0.4em] text-emerald-400">Nova Nota</p>
+                            <h3 class="text-xl font-bold text-white mt-1">Adicionar Nota</h3>
+                            <p class="text-sm text-white/50">{{ $taskName }}</p>
+                        </div>
+                        <button
+                            wire:click="closeCreateModal"
+                            class="flex items-center justify-center size-8 rounded-lg bg-white/10 text-white/70 transition hover:bg-white/20 hover:text-white"
+                            title="Fechar"
+                        >
+                            <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                            </svg>
+                        </button>
+                    </div>
+
+                    <!-- Form -->
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-semibold uppercase tracking-wide text-white/60 mb-2">
+                                Conteudo da Nota
+                            </label>
+                            <textarea
+                                wire:model="newNoteContent"
+                                rows="6"
+                                class="w-full rounded-[16px] border border-white/10 bg-black/40 px-4 py-3 text-base text-white placeholder-white/30 focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500/50 resize-none"
+                                placeholder="Digite sua nota aqui..."
+                                autofocus
+                            ></textarea>
+                        </div>
+
+                        <!-- Actions -->
+                        <div class="flex items-center justify-end gap-3 pt-2">
+                            <button
+                                wire:click="closeCreateModal"
+                                class="rounded-[12px] border border-white/20 px-5 py-2.5 text-sm font-medium text-white/70 transition hover:border-white/40 hover:bg-white/5 hover:text-white"
+                            >
+                                Cancelar
+                            </button>
+                            <button
+                                wire:click="createNote"
+                                class="rounded-[12px] bg-emerald-600 px-5 py-2.5 text-sm font-bold text-white shadow-lg transition hover:bg-emerald-500"
+                            >
+                                <span class="flex items-center gap-2">
+                                    <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                                    </svg>
+                                    Salvar Nota
+                                </span>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
