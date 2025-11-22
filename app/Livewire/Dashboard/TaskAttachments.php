@@ -66,8 +66,8 @@ class TaskAttachments extends Component
             // Generate unique filename
             $storedFilename = Str::uuid() . '.' . $extension;
 
-            // Store file
-            $file->storeAs('attachments', $storedFilename);
+            // Store file in public disk
+            $file->storeAs('attachments', $storedFilename, 'public');
 
             // Create attachment record
             $task->attachments()->create([
@@ -154,7 +154,7 @@ class TaskAttachments extends Component
             return;
         }
 
-        $filePath = storage_path('app/attachments/' . $attachment->stored_filename);
+        $filePath = storage_path('app/public/attachments/' . $attachment->stored_filename);
 
         if (!file_exists($filePath)) {
             Flux::toast('Arquivo não encontrado no servidor', variant: 'danger');

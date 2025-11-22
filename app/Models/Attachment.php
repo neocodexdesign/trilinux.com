@@ -54,7 +54,15 @@ class Attachment extends Model
      */
     public function getFilePath(): string
     {
-        return storage_path('app/attachments/' . $this->stored_filename);
+        return storage_path('app/public/attachments/' . $this->stored_filename);
+    }
+
+    /**
+     * Get the public URL for the file
+     */
+    public function getPublicUrl(): string
+    {
+        return asset('storage/attachments/' . $this->stored_filename);
     }
 
     /**
@@ -83,7 +91,7 @@ class Attachment extends Model
     protected static function booted(): void
     {
         static::deleting(function (Attachment $attachment) {
-            Storage::delete('attachments/' . $attachment->stored_filename);
+            Storage::disk('public')->delete('attachments/' . $attachment->stored_filename);
         });
     }
 }
