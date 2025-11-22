@@ -85,9 +85,9 @@
                                      x-init="expandedTasks[{{ $task->id }}] = false">
                                     <div class="absolute inset-y-0 left-0 w-1 bg-gradient-to-b from-blue-400 to-blue-600"></div>
                                     <!-- Task Header (sempre visível) -->
-                                    <div class="p-3 pl-5 flex items-center justify-between cursor-pointer"
+                                    <div class="p-3 pl-5 cursor-pointer"
                                          @click="expandedTasks[{{ $task->id }}] = !expandedTasks[{{ $task->id }}]">
-                                        <div class="flex items-center gap-2 flex-1">
+                                        <div class="flex items-center gap-2">
                                             <!-- Ícone de expand/collapse da tarefa -->
                                             <svg x-show="expandedTasks[{{ $task->id }}]" class="size-3 text-blue-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
@@ -96,19 +96,24 @@
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                                             </svg>
 
-                                            <h6 class="text-sm font-medium text-blue-50">
+                                            <h6 class="text-sm font-medium text-blue-50 flex-1">
                                                 {{ $task->name }}
                                             </h6>
-                                            <span class="ml-2 rounded px-1.5 py-0.5 text-xs font-medium
+                                            <span class="rounded px-1.5 py-0.5 text-xs font-medium
                                                 {{ $task->status === 'in_progress' ? 'bg-blue-500/20 text-blue-300 ring-1 ring-blue-500/30' : 'bg-yellow-500/20 text-yellow-300 ring-1 ring-yellow-500/30' }}">
                                                 {{ $task->status === 'in_progress' ? 'Active' : 'Paused' }}
                                             </span>
                                         </div>
 
-                                        <!-- Media Icons -->
-                                        <div class="mr-2">
-                                            <x-task-media-icons :task="$task" />
-                                        </div>
+                                        <!-- Media Icons (below task name and badge) -->
+                                        @php
+                                            $media = $task->getMediaSummary();
+                                        @endphp
+                                        @if($media['total'] > 0)
+                                            <div class="flex items-center gap-1.5 mt-2 ml-5" @click.stop>
+                                                <x-task-media-icons :task="$task" />
+                                            </div>
+                                        @endif
                                     </div>
 
                                     <!-- Task Details (minimizável) -->
