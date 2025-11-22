@@ -104,6 +104,10 @@
                                                             {{ $task->name }}
                                                         </h6>
                                                     </div>
+                                                    <!-- Media Icons -->
+                                                    <div class="mr-2">
+                                                        <x-task-media-icons :task="$task" />
+                                                    </div>
                                                 </div>
 
                                                 <!-- Task Details (minimizável) -->
@@ -296,6 +300,10 @@
                                                         <span class="ml-2 rounded px-1.5 py-0.5 text-xs font-medium bg-sky-500/20 text-sky-300 ring-1 ring-sky-500/30">
                                                             Active
                                                         </span>
+                                                    </div>
+                                                    <!-- Media Icons -->
+                                                    <div class="mr-2">
+                                                        <x-task-media-icons :task="$task" />
                                                     </div>
                                                 </div>
 
@@ -552,6 +560,10 @@
                                                             Paused
                                                         </span>
                                                     </div>
+                                                    <!-- Media Icons -->
+                                                    <div class="mr-2">
+                                                        <x-task-media-icons :task="$task" />
+                                                    </div>
                                                 </div>
 
                                                 <!-- Task Details (minimizável) -->
@@ -738,6 +750,10 @@
                                                         <h6 class="text-sm font-medium text-green-50">
                                                             {{ $task->name }}
                                                         </h6>
+                                                    </div>
+                                                    <!-- Media Icons -->
+                                                    <div class="mr-2">
+                                                        <x-task-media-icons :task="$task" />
                                                     </div>
                                                 </div>
 

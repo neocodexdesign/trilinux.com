@@ -99,6 +99,10 @@
                                                 {{ $task->name }}
                                             </h6>
                                         </div>
+                                        <!-- Media Icons -->
+                                        <div class="mr-2">
+                                            <x-task-media-icons :task="$task" />
+                                        </div>
                                     </div>
 
                                     <!-- Task Details (minimizável) -->

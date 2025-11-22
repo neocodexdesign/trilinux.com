@@ -303,4 +303,67 @@ class Task extends Model
                 return $timeLog->getTotalPauseMinutes();
             });
     }
+
+    /**
+     * Get media summary (counts by type)
+     */
+    public function getMediaSummary(): array
+    {
+        $attachments = $this->attachments;
+
+        $videos = $attachments->filter(fn($a) => str_starts_with($a->mime_type, 'video/'))->count();
+        $images = $attachments->filter(fn($a) => str_starts_with($a->mime_type, 'image/'))->count();
+        $documents = $attachments->filter(fn($a) =>
+            !str_starts_with($a->mime_type, 'video/') &&
+            !str_starts_with($a->mime_type, 'image/')
+        )->count();
+
+        return [
+            'videos' => $videos,
+            'images' => $images,
+            'documents' => $documents,
+            'total' => $attachments->count(),
+        ];
+    }
+
+    /**
+     * Get first video attachment
+     */
+    public function getFirstVideo(): ?Attachment
+    {
+        return $this->attachments()
+            ->where('mime_type', 'like', 'video/%')
+            ->first();
+    }
+
+    /**
+     * Check if task has videos
+     */
+    public function hasVideos(): bool
+    {
+        return $this->attachments()
+            ->where('mime_type', 'like', 'video/%')
+            ->exists();
+    }
+
+    /**
+     * Check if task has images
+     */
+    public function hasImages(): bool
+    {
+        return $this->attachments()
+            ->where('mime_type', 'like', 'image/%')
+            ->exists();
+    }
+
+    /**
+     * Check if task has documents (non-video, non-image)
+     */
+    public function hasDocuments(): bool
+    {
+        return $this->attachments()
+            ->where('mime_type', 'not like', 'video/%')
+            ->where('mime_type', 'not like', 'image/%')
+            ->exists();
+    }
 }
