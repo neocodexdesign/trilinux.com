@@ -46,7 +46,7 @@ Route::middleware(['auth'])->group(function () {
         return view('projects.manage', ['project' => $project]);
     })->name('projects.manage');
 
-    // Attachments
+    // Attachments - Download
     Route::get('attachments/{attachment}/download', function ($attachmentId) {
         $attachment = \App\Models\Attachment::findOrFail($attachmentId);
         $path = storage_path('app/public/attachments/' . $attachment->stored_filename);
@@ -57,6 +57,20 @@ Route::middleware(['auth'])->group(function () {
 
         return response()->download($path, $attachment->filename);
     })->name('attachments.download');
+
+    // Attachments - View/Stream (for images and videos)
+    Route::get('attachments/{attachment}/view', function ($attachmentId) {
+        $attachment = \App\Models\Attachment::findOrFail($attachmentId);
+        $path = storage_path('app/public/attachments/' . $attachment->stored_filename);
+
+        if (!file_exists($path)) {
+            abort(404, 'Arquivo não encontrado');
+        }
+
+        return response()->file($path, [
+            'Content-Type' => $attachment->mime_type,
+        ]);
+    })->name('attachments.view');
 
     // Settings Routes
     Route::redirect('settings', 'settings/profile');

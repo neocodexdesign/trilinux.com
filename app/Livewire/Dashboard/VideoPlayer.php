@@ -23,7 +23,7 @@ class VideoPlayer extends Component
         }
 
         $this->attachmentId = $attachmentId;
-        $this->videoUrl = asset('storage/attachments/' . $attachment->stored_filename);
+        $this->videoUrl = route('attachments.view', $attachmentId);
         $this->videoTitle = $attachment->filename;
         $this->showModal = true;
     }

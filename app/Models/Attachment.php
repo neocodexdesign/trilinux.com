@@ -58,11 +58,11 @@ class Attachment extends Model
     }
 
     /**
-     * Get the public URL for the file
+     * Get the public URL for the file (via Laravel route to avoid redirect issues)
      */
     public function getPublicUrl(): string
     {
-        return asset('storage/attachments/' . $this->stored_filename);
+        return route('attachments.view', $this->id);
     }
 
     /**
