@@ -166,7 +166,7 @@
                                             <button
                                                 wire:click.stop="$dispatch('open-task-notes', { taskId: {{ $task->id }} })"
                                                 @click.stop
-                                                class="relative rounded bg-amber-600/40 p-2 text-white transition-all hover:bg-amber-600/60 active:scale-95"
+                                                class="relative rounded bg-amber-500/15 p-2 text-white/70 transition-all hover:bg-amber-500/30 hover:text-white active:scale-95"
                                                 title="Notas">
                                                 <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
@@ -182,7 +182,7 @@
                                             <button
                                                 wire:click.stop="$dispatch('open-task-attachments', { taskId: {{ $task->id }} })"
                                                 @click.stop
-                                                class="relative rounded bg-purple-500/30 p-2 text-white transition-all hover:bg-purple-500/50 active:scale-95"
+                                                class="relative rounded bg-purple-500/15 p-2 text-white/70 transition-all hover:bg-purple-500/30 hover:text-white active:scale-95"
                                                 title="Anexos">
                                                 <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"/>
@@ -200,7 +200,7 @@
                                             <button
                                                 wire:click.stop="editTask({{ $task->id }})"
                                                 @click.stop
-                                                class="rounded-lg bg-blue-600 p-2 text-white transition-all hover:bg-blue-500 active:scale-95"
+                                                class="rounded-lg bg-blue-500/15 p-2 text-white/70 transition-all hover:bg-blue-500/30 hover:text-white active:scale-95"
                                                 title="Editar tarefa">
                                                 <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
@@ -210,7 +210,7 @@
                                             <!-- Botão Excluir -->
                                             <button
                                                 @click.stop="showDeleteModal = true; taskToDelete = {{ $task->id }}; taskName = '{{ addslashes($task->name) }}'"
-                                                class="rounded-lg bg-red-600 p-2 text-white transition-all hover:bg-red-500 active:scale-95"
+                                                class="rounded-lg bg-red-500/15 p-2 text-white/70 transition-all hover:bg-red-500/30 hover:text-white active:scale-95"
                                                 title="Excluir tarefa">
                                                 <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
@@ -221,7 +221,7 @@
                                             <button
                                                 wire:click.stop="startTask({{ $task->id }})"
                                                 @click.stop
-                                                class="rounded-lg bg-amber-500 p-2 text-neutral-900 transition-all hover:bg-amber-400 active:scale-95"
+                                                class="rounded-lg bg-green-500/15 p-2 text-white/70 transition-all hover:bg-green-500/30 hover:text-white active:scale-95"
                                                 title="Iniciar tarefa">
                                                 <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/>
