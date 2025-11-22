@@ -66,8 +66,13 @@ class TaskAttachments extends Component
             // Generate unique filename
             $storedFilename = Str::uuid() . '.' . $extension;
 
-            // Store file in public disk
-            $file->storeAs('attachments', $storedFilename, 'public');
+            // Store file in public disk using Storage facade
+            $path = Storage::disk('public')->putFileAs('attachments', $file, $storedFilename);
+
+            if (!$path) {
+                Flux::toast('Erro ao salvar arquivo: ' . $originalName, variant: 'danger');
+                continue;
+            }
 
             // Create attachment record
             $task->attachments()->create([
