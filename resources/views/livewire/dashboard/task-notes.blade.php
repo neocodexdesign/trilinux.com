@@ -24,9 +24,6 @@
                 class="relative w-full max-w-4xl max-h-[90vh] overflow-hidden rounded-[32px] border border-white/10 bg-gradient-to-br from-[#05070f] to-[#0c1226] shadow-2xl outline outline-1 outline-[#1a213c]"
                 wire:click.stop
             >
-                <!-- Top accent bar -->
-                <div class="absolute inset-x-6 top-0 h-1 rounded-t-[32px] bg-amber-500"></div>
-
                 <!-- Scrollable content -->
                 <div class="flex flex-col gap-6 px-6 py-6 max-h-[90vh] overflow-y-auto">
                     <!-- Header -->
@@ -74,9 +71,12 @@
                             @endphp
                             <div
                                 wire:key="note-{{ $note->id }}"
-                                class="relative rounded-[20px] border p-4 shadow-[0_15px_30px_rgba(0,0,0,0.4)] transition-transform duration-300 hover:-translate-y-1"
+                                class="relative overflow-hidden rounded-[20px] border p-4 shadow-[0_15px_30px_rgba(0,0,0,0.4)] transition-transform duration-300 hover:-translate-y-1"
                                 style="background: {{ $palette['gradient'] }}; border-color: {{ $palette['border'] }};"
                             >
+                                <!-- Top accent bar da nota -->
+                                <div class="absolute inset-x-0 top-0 h-1" style="background: {{ $palette['border'] }};"></div>
+
                                 <!-- Note Header -->
                                 <div class="flex items-start justify-between gap-3">
                                     <div>
