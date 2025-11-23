@@ -104,6 +104,12 @@
                                             </span>
                                         </div>
 
+                                        @if($task->description)
+                                            <p class="mt-1.5 ml-5 text-xs text-orange-200/50 line-clamp-2">
+                                                {{ Str::limit($task->description, 100) }}
+                                            </p>
+                                        @endif
+
                                         <!-- Media Icons (below task name and badge) -->
                                         @php
                                             $media = $task->getMediaSummary();
