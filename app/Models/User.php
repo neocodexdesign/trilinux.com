@@ -27,6 +27,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'avatar',
     ];
 
     /**
@@ -64,6 +65,26 @@ class User extends Authenticatable
             ->take(2)
             ->map(fn ($word) => Str::substr($word, 0, 1))
             ->implode('');
+    }
+
+    /**
+     * Get the URL for the user's avatar
+     */
+    public function avatarUrl(): ?string
+    {
+        if (!$this->avatar) {
+            return null;
+        }
+
+        return asset('storage/' . $this->avatar);
+    }
+
+    /**
+     * Check if the user has an avatar
+     */
+    public function hasAvatar(): bool
+    {
+        return !empty($this->avatar);
     }
 
     /**

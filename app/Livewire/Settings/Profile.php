@@ -5,22 +5,32 @@ namespace App\Livewire\Settings;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class Profile extends Component
 {
+    use WithFileUploads;
+
     public string $name = '';
 
     public string $email = '';
+
+    public $avatar;
+
+    public ?string $currentAvatar = null;
 
     /**
      * Mount the component.
      */
     public function mount(): void
     {
-        $this->name = Auth::user()->name;
-        $this->email = Auth::user()->email;
+        $user = Auth::user();
+        $this->name = $user->name;
+        $this->email = $user->email;
+        $this->currentAvatar = $user->avatar;
     }
 
     /**
@@ -70,5 +80,48 @@ class Profile extends Component
         $user->sendEmailVerificationNotification();
 
         Session::flash('status', 'verification-link-sent');
+    }
+
+    /**
+     * Update the user's avatar.
+     */
+    public function updateAvatar(): void
+    {
+        $this->validate([
+            'avatar' => ['required', 'image', 'max:2048'], // max 2MB
+        ]);
+
+        $user = Auth::user();
+
+        // Delete old avatar if exists
+        if ($user->avatar) {
+            Storage::disk('public')->delete($user->avatar);
+        }
+
+        // Store new avatar
+        $path = $this->avatar->store('avatars', 'public');
+
+        $user->update(['avatar' => $path]);
+
+        $this->currentAvatar = $path;
+        $this->avatar = null;
+
+        $this->dispatch('avatar-updated');
+    }
+
+    /**
+     * Remove the user's avatar.
+     */
+    public function removeAvatar(): void
+    {
+        $user = Auth::user();
+
+        if ($user->avatar) {
+            Storage::disk('public')->delete($user->avatar);
+            $user->update(['avatar' => null]);
+            $this->currentAvatar = null;
+
+            $this->dispatch('avatar-removed');
+        }
     }
 }
