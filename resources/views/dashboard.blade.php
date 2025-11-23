@@ -1,7 +1,10 @@
 <x-layouts.app :title="__('Dashboard')">
     <!-- Logo no topo -->
     <div class="mb-6 flex items-center justify-center">
-        <img src="{{ asset('images/logo/logo_main.png') }}" alt="Trilinux Logo" class="h-16 w-auto" />
+        <!-- Logo para modo light -->
+        <img src="{{ asset('images/logo/logo_main_light.png') }}" alt="Trilinux Logo" class="h-16 w-auto dark:hidden" />
+        <!-- Logo para modo dark -->
+        <img src="{{ asset('images/logo/logo_main_black.png') }}" alt="Trilinux Logo" class="hidden h-16 w-auto dark:block" />
     </div>
 
     <div class="flex flex-col gap-4 w-full max-w-full">

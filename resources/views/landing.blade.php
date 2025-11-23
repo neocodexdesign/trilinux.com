@@ -25,7 +25,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
                 <div class="flex items-center">
-                    <img src="{{ asset('images/logo/logo_main.png') }}" alt="Trilinux" class="h-10 w-auto">
+                    <img src="{{ asset('images/logo/logo_main_light.png') }}" alt="Trilinux" class="h-10 w-auto">
                 </div>
                 <div class="hidden md:flex items-center space-x-8">
                     <a href="#funcionalidades" class="text-gray-600 hover:text-gray-900 transition">Funcionalidades</a>
@@ -569,7 +569,7 @@
         <div class="max-w-7xl mx-auto">
             <div class="grid md:grid-cols-4 gap-8 mb-8">
                 <div>
-                    <img src="{{ asset('images/logo/logo_main.png') }}" alt="Trilinux" class="h-10 w-auto mb-4">
+                    <img src="{{ asset('images/logo/logo_main_black.png') }}" alt="Trilinux" class="h-10 w-auto mb-4">
                     <p class="text-sm text-gray-400">Gerenciador de tarefas multitenant para empresas que pensam grande.</p>
                 </div>
                 <div>
