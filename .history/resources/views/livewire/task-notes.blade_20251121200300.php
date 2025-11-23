@@ -25,7 +25,7 @@
             <span class="text-xs text-white/70">{{ $notesCount }}</span>
         @endif
     </button>
-os.
+
     @if($showModal)
         <template x-teleport="body">
             <div

@@ -63,12 +63,9 @@
                                             <h6 class="text-base font-medium text-emerald-50">
                                                 {{ $task->name }}
                                             </h6>
-                                            <div class="flex items-center gap-2">
-                                                <livewire:task-notes :task="$task" :key="'task-notes-'.$task->id" />
-                                                <svg class="size-5 shrink-0 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                                                </svg>
-                                            </div>
+                                            <svg class="size-5 shrink-0 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                            </svg>
                                         </div>
 
                                         @if($task->description)
@@ -82,7 +79,7 @@
                                             $media = $task->getMediaSummary();
                                         @endphp
                                         @if($media['total'] > 0)
-                                            <div class="flex items-center gap-1.5 mb-3" wire:click.stop>
+                                            <div class="flex items-center gap-1.5 mb-3" @click.stop>
                                                 <x-task-media-icons :task="$task" />
                                             </div>
                                         @endif
@@ -109,7 +106,7 @@
                                             </div>
 
                                             <!-- Botões de Ação -->
-                                            <div class="flex gap-2" wire:click.stop>
+                                            <div class="flex gap-2" @click.stop>
                                                 @php
                                                     $notesCount = $task->notes()->count();
                                                     $attachmentsCount = $task->attachments()->count();

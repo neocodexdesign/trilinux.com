@@ -68,12 +68,9 @@
                                             <h6 class="text-base font-medium text-{{ $statusColor }}-50">
                                                 {{ $task->name }}
                                             </h6>
-                                            <div class="flex items-center gap-2" wire:click.stop>
-                                                <livewire:task-notes :task="$task" :key="'task-notes-'.$task->id" />
-                                                <span class="rounded px-2 py-0.5 text-xs font-medium bg-{{ $statusColor }}-500/20 text-{{ $statusColor }}-300 ring-1 ring-{{ $statusColor }}-500/30 whitespace-nowrap">
-                                                    {{ $statusLabel }}
-                                                </span>
-                                            </div>
+                                            <span class="rounded px-2 py-0.5 text-xs font-medium bg-{{ $statusColor }}-500/20 text-{{ $statusColor }}-300 ring-1 ring-{{ $statusColor }}-500/30 whitespace-nowrap">
+                                                {{ $statusLabel }}
+                                            </span>
                                         </div>
 
                                         @if($task->description)
@@ -87,7 +84,7 @@
                                             $media = $task->getMediaSummary();
                                         @endphp
                                         @if($media['total'] > 0)
-                                            <div class="flex items-center gap-1.5 mb-3" wire:click.stop>
+                                            <div class="flex items-center gap-1.5 mb-3" @click.stop>
                                                 <x-task-media-icons :task="$task" />
                                             </div>
                                         @endif
