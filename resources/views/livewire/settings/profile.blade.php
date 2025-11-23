@@ -47,7 +47,7 @@
                         </button>
                     @endif
 
-                    <p class="text-xs text-zinc-500 dark:text-zinc-400">{{ __('JPG, PNG or GIF. Max 2MB.') }}</p>
+                    <p class="text-xs text-zinc-500 dark:text-zinc-400">{{ __('JPG, PNG or GIF. Max 10MB.') }}</p>
                 </div>
             </div>
 

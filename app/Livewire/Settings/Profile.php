@@ -88,7 +88,7 @@ class Profile extends Component
     public function updateAvatar(): void
     {
         $this->validate([
-            'avatar' => ['required', 'image', 'max:2048'], // max 2MB
+            'avatar' => ['required', 'image', 'max:10240'], // max 10MB
         ]);
 
         $user = Auth::user();
