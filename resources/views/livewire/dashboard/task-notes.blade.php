@@ -22,7 +22,7 @@
         >
             <div
                 class="relative w-full max-w-4xl max-h-[90vh] overflow-hidden rounded-[32px] border border-white/10 bg-gradient-to-br from-[#05070f] to-[#0c1226] shadow-2xl outline outline-1 outline-[#1a213c]"
-                wire:click.stop
+                @click.stop
             >
                 <!-- Scrollable content -->
                 <div class="flex flex-col gap-6 px-6 py-6 max-h-[90vh] overflow-y-auto">
@@ -183,7 +183,7 @@
         >
             <div
                 class="relative w-full max-w-lg rounded-[24px] border border-white/10 bg-gradient-to-br from-[#0a0f1a] to-[#151d2e] shadow-2xl"
-                wire:click.stop
+                @click.stop
             >
                 <!-- Top accent bar -->
                 <div class="absolute inset-x-4 top-0 h-1 rounded-t-[24px] bg-emerald-500"></div>
