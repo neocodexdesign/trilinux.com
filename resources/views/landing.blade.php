@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html lang="pt-BR" class="scroll-smooth">
+<html lang="pt-BR" translate="no" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google" content="notranslate">
     <title>Trilinux - Gerenciador de Tarefas Multitenant para Empresas</title>
     <meta name="description" content="Sistema completo de gerenciamento de tarefas multitenant. Controle múltiplas empresas, equipes e usuários em uma única plataforma segura.">
 
@@ -19,6 +20,7 @@
     </style>
 </head>
 <body class="bg-white text-gray-900 antialiased">
+    @include('partials.translation-prompt')
 
     <!-- Navigation -->
     <nav class="fixed top-0 w-full bg-white/95 backdrop-blur-sm border-b border-gray-200 z-50">

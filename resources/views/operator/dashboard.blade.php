@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" translate="no">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google" content="notranslate">
     <title>Dashboard do Operador</title>
     @livewireStyles
     <script src="https://cdn.tailwindcss.com"></script>
@@ -12,6 +13,7 @@
     </style>
 </head>
 <body class="bg-gray-50 h-screen overflow-hidden">
+    @include('partials.translation-prompt')
     <!-- Header fixo -->
     <div class="bg-white border-b border-gray-200 px-6 py-4 flex justify-between items-center">
         <h1 class="text-xl font-bold text-gray-800">Dashboard do Operador</h1>
