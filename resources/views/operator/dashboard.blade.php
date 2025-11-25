@@ -13,7 +13,6 @@
     </style>
 </head>
 <body class="bg-gray-50 h-screen overflow-hidden">
-    @include('partials.translation-prompt')
     <!-- Header fixo -->
     <div class="bg-white border-b border-gray-200 px-6 py-4 flex justify-between items-center">
         <h1 class="text-xl font-bold text-gray-800">Dashboard do Operador</h1>

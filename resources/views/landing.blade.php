@@ -20,7 +20,6 @@
     </style>
 </head>
 <body class="bg-white text-gray-900 antialiased">
-    @include('partials.translation-prompt')
 
     <!-- Navigation -->
     <nav class="fixed top-0 w-full bg-white/95 backdrop-blur-sm border-b border-gray-200 z-50">
