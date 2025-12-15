@@ -12,10 +12,22 @@
         <div class="rounded-xl border border-neutral-700 bg-neutral-900 shadow-2xl">
             <!-- Header -->
             <div class="border-b border-neutral-700 px-6 py-4">
-                <h1 class="text-2xl font-bold text-neutral-50">{{ $project->name }}</h1>
-                <p class="mt-1 text-sm text-neutral-400">
-                    Projeto
-                </p>
+                <div class="flex items-start justify-between gap-4">
+                    <div>
+                        <h1 class="text-2xl font-bold text-neutral-50">{{ $project->name }}</h1>
+                        <p class="mt-1 text-sm text-neutral-400">
+                            Projeto
+                        </p>
+                    </div>
+
+                    <a
+                        href="{{ route('projects.markdown-plan', $project) }}"
+                        class="inline-flex items-center rounded-lg border border-neutral-700 bg-neutral-900 px-3 py-2 text-sm font-medium text-neutral-200 shadow-sm transition hover:bg-neutral-800"
+                        wire:navigate
+                    >
+                        Markdown Plan
+                    </a>
+                </div>
             </div>
 
             <!-- Tabs -->

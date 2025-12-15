@@ -31,6 +31,9 @@ class Stage extends Model
         'responsible_id',
         'team_id',
         'order',
+        'source_note_id',
+        'source',
+        'source_key',
     ];
 
     protected function casts(): array

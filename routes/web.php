@@ -4,6 +4,7 @@ use App\Livewire\Settings\Appearance;
 use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
 use App\Livewire\Settings\TwoFactor;
+use App\Livewire\Projects\ProjectMarkdownPlan;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
 
@@ -45,6 +46,9 @@ Route::middleware(['auth'])->group(function () {
         $project = \App\Models\Project::with(['notes', 'attachments'])->findOrFail($projectId);
         return view('projects.manage', ['project' => $project]);
     })->name('projects.manage');
+
+    Route::get('projects/{project}/markdown-plan', ProjectMarkdownPlan::class)
+        ->name('projects.markdown-plan');
 
     // Attachments - Download
     Route::get('attachments/{attachment}/download', function ($attachmentId) {
