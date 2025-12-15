@@ -17,6 +17,8 @@ Route::view('dashboard', 'dashboard')
     ->name('dashboard');
 
 Route::middleware(['auth'])->group(function () {
+    Route::redirect('projects/', 'projects')->name('projects.index.slash');
+
     Route::get('projects', function () {
         $projects = \App\Models\Project::query()
             ->with(['responsible', 'team'])
