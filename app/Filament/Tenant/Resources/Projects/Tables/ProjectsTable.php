@@ -2,6 +2,7 @@
 
 namespace App\Filament\Tenant\Resources\Projects\Tables;
 
+use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
@@ -71,6 +72,12 @@ class ProjectsTable
                     ->label('Status'),
             ])
             ->recordActions([
+                Action::make('markdownPlan')
+                    ->label('Markdown Plan')
+                    ->icon('heroicon-o-check-circle')
+                    ->color('gray')
+                    ->url(fn ($record) => route('projects.markdown-plan', $record))
+                    ->openUrlInNewTab(),
                 EditAction::make(),
             ])
             ->toolbarActions([

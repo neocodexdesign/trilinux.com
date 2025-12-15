@@ -17,6 +17,15 @@ Route::view('dashboard', 'dashboard')
     ->name('dashboard');
 
 Route::middleware(['auth'])->group(function () {
+    Route::get('projects', function () {
+        $projects = \App\Models\Project::query()
+            ->with(['responsible', 'team'])
+            ->orderByDesc('created_at')
+            ->paginate(15);
+
+        return view('projects.index', compact('projects'));
+    })->name('projects.index');
+
     // My Tasks Routes
     Route::view('tasks/my/pending', 'tasks.my.pending')->name('tasks.my.pending');
     Route::view('tasks/my/active', 'tasks.my.active')->name('tasks.my.active');
