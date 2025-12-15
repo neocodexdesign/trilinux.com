@@ -18,12 +18,14 @@ class ProjectMarkdownPlan extends Component
     public string $markdown = '';
     public string $generated = '';
 
-    public function mount(Project $project, MarkdownNoteExporter $exporter, ?int $note = null): void
+    public function mount(Project $project, MarkdownNoteExporter $exporter, Note|int|null $note = null): void
     {
         $this->project = $project;
 
         if ($note) {
-            $resolvedNote = Note::query()->whereKey($note)->firstOrFail();
+            $resolvedNote = $note instanceof Note
+                ? $note
+                : Note::query()->whereKey($note)->firstOrFail();
 
             if ($resolvedNote->notable_type !== Project::class || (int) $resolvedNote->notable_id !== (int) $project->id) {
                 abort(404);
