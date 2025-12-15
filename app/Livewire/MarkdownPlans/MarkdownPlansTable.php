@@ -73,9 +73,9 @@ class MarkdownPlansTable extends Component
 
     public function open(int $noteId)
     {
-        [$project] = $this->resolveProjectAndNote($noteId);
+        [$project, $note] = $this->resolveProjectAndNote($noteId);
 
-        return redirect()->route('projects.markdown-plan', $project);
+        return redirect()->route('projects.markdown-plan', [$project, $note]);
     }
 
     public function render()
@@ -137,4 +137,3 @@ class MarkdownPlansTable extends Component
         return [$project, $note];
     }
 }
-

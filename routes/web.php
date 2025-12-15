@@ -62,7 +62,8 @@ Route::middleware(['auth'])->group(function () {
         return view('projects.manage', ['project' => $project]);
     })->name('projects.manage');
 
-    Route::get('projects/{project}/markdown-plan', ProjectMarkdownPlan::class)
+    Route::get('projects/{project}/markdown-plan/{note?}', ProjectMarkdownPlan::class)
+        ->whereNumber('note')
         ->name('projects.markdown-plan');
 
     // Attachments - Download
