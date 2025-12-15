@@ -17,6 +17,8 @@ Route::view('dashboard', 'dashboard')
     ->name('dashboard');
 
 Route::middleware(['auth'])->group(function () {
+    Route::redirect('projects/', 'projects')->name('projects.index.slash');
+
     Route::get('projects', function () {
         $projects = \App\Models\Project::query()
             ->with(['responsible', 'team'])
@@ -25,6 +27,10 @@ Route::middleware(['auth'])->group(function () {
 
         return view('projects.index', compact('projects'));
     })->name('projects.index');
+
+    Route::get('markdown-plans', function () {
+        return view('markdown-plans.index');
+    })->name('markdown-plans.index');
 
     // My Tasks Routes
     Route::view('tasks/my/pending', 'tasks.my.pending')->name('tasks.my.pending');

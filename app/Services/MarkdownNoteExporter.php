@@ -12,6 +12,7 @@ use Illuminate\Support\Str;
 class MarkdownNoteExporter
 {
     public const SOURCE = 'markdown_note';
+    public const NOTE_MARKER = '<!-- markdown_plan -->';
 
     /**
      * @return array<int, array{name: string, tasks: array<int, array{name: string, checked: bool}>}>
@@ -138,6 +139,40 @@ class MarkdownNoteExporter
         });
     }
 
+    public function purge(Project $project, Note $note): void
+    {
+        DB::transaction(function () use ($project, $note) {
+            Stage::query()
+                ->where('project_id', $project->id)
+                ->where('source_note_id', $note->id)
+                ->where('source', self::SOURCE)
+                ->delete();
+        });
+    }
+
+    public function syncMarkdownFromSystem(Project $project, Note $note): void
+    {
+        $generated = $this->generateChecklist($project, $note);
+
+        $note->update([
+            'content' => self::NOTE_MARKER . "\n" . ltrim($generated),
+            'is_pinned' => true,
+        ]);
+    }
+
+    public function recalcAllStages(Project $project, Note $note): void
+    {
+        $stages = Stage::query()
+            ->where('project_id', $project->id)
+            ->where('source_note_id', $note->id)
+            ->where('source', self::SOURCE)
+            ->get();
+
+        foreach ($stages as $stage) {
+            $this->recalcStageStatus($stage);
+        }
+    }
+
     public function toggleTask(Task $task): void
     {
         DB::transaction(function () use ($task) {
@@ -230,6 +265,9 @@ class MarkdownNoteExporter
         $lines = preg_split("/\\r\\n|\\n|\\r/", $markdown) ?: [];
 
         foreach ($lines as $line) {
+            if (trim($line) === self::NOTE_MARKER) {
+                continue;
+            }
             if (preg_match('/^\\s*#\\s+(.+)\\s*$/u', $line, $m)) {
                 return trim($m[1]) ?: null;
             }
@@ -249,4 +287,3 @@ class MarkdownNoteExporter
         return hash('sha1', $normalized);
     }
 }
-

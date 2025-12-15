@@ -15,6 +15,7 @@
                 <flux:navlist.group :heading="__('Platform')" class="grid">
                     <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Dashboard') }}</flux:navlist.item>
                     <flux:navlist.item icon="folder-git-2" :href="route('projects.index')" :current="request()->routeIs('projects.*')" wire:navigate>Projetos</flux:navlist.item>
+                    <flux:navlist.item icon="book-open-text" :href="route('markdown-plans.index')" :current="request()->routeIs('markdown-plans.*')" wire:navigate>Markdown Plans</flux:navlist.item>
                 </flux:navlist.group>
 
                 <flux:navlist.group expandable :heading="__('My Tasks')" icon="user" class="grid">

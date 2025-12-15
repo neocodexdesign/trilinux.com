@@ -108,7 +108,10 @@ class ProjectMarkdownPlan extends Component
         $existing = $this->project
             ->notes()
             ->where('is_pinned', true)
-            ->where('content', 'like', '# %')
+            ->where(function ($q) {
+                $q->where('content', 'like', MarkdownNoteExporter::NOTE_MARKER . '%')
+                    ->orWhere('content', 'like', '# %');
+            })
             ->orderByDesc('updated_at')
             ->first();
 
@@ -125,7 +128,8 @@ class ProjectMarkdownPlan extends Component
 
     private function defaultTemplate(): string
     {
-        return "# Plano do Projeto: {$this->project->name}\n\n## Geral\n- [ ] Defina as etapas\n- [ ] Liste as tarefas\n";
+        return MarkdownNoteExporter::NOTE_MARKER
+            . "\n"
+            . "# Plano do Projeto: {$this->project->name}\n\n## Geral\n- [ ] Defina as etapas\n- [ ] Liste as tarefas\n";
     }
 }
-
