@@ -8,25 +8,7 @@
     </div>
 
     <div class="flex flex-col gap-4 w-full max-w-full">
-        <!-- Acesso rapido: Projetos -->
-        <div class="w-full">
-            <a href="{{ route('projects.index') }}"
-               class="group block w-full rounded-xl border border-neutral-700 bg-neutral-900/60 p-4 shadow-sm transition hover:bg-neutral-900"
-               wire:navigate>
-                <div class="flex items-center justify-between gap-4">
-                    <div>
-                        <div class="text-sm font-semibold text-neutral-100">Projetos</div>
-                        <div class="mt-1 text-xs text-neutral-400">Ver a lista de projetos e abrir o gerenciamento.</div>
-                    </div>
-                    <div class="inline-flex items-center gap-2 rounded-lg bg-indigo-600 px-3 py-2 text-sm font-medium text-white transition group-hover:bg-indigo-500">
-                        Abrir
-                        <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                        </svg>
-                    </div>
-                </div>
-            </a>
-        </div>
+        <livewire:dashboard.projects-table />
         <!-- Seção Superior: Minhas Tarefas (3 colunas) -->
         <div
             class="w-full"

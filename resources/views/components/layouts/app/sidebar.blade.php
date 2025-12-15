@@ -288,16 +288,6 @@
                     <span class="text-xs font-medium">Dashboard</span>
                 </a>
 
-                <!-- Projects -->
-                <a href="{{ route('projects.index') }}"
-                   class="flex flex-col items-center justify-center flex-1 h-full gap-1 transition-colors {{ request()->routeIs('projects.*') ? 'text-indigo-400' : 'text-zinc-400 hover:text-zinc-200' }}"
-                   wire:navigate>
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2H5a2 2 0 01-2-2V7zM3 17a2 2 0 012-2h6a2 2 0 012 2v2a2 2 0 01-2 2H5a2 2 0 01-2-2v-2zM13 17a2 2 0 012-2h4a2 2 0 012 2v2a2 2 0 01-2 2h-4a2 2 0 01-2-2v-2z"/>
-                    </svg>
-                    <span class="text-xs font-medium">Projetos</span>
-                </a>
-
                 <!-- My Tasks -->
                 <a href="{{ route('tasks.my.pending') }}"
                    class="flex flex-col items-center justify-center flex-1 h-full gap-1 transition-colors {{ request()->routeIs('tasks.my.*') ? 'text-indigo-400' : 'text-zinc-400 hover:text-zinc-200' }}"
