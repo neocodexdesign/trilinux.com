@@ -296,7 +296,7 @@
     </div>
     @if($showTaskForm)
         <div class="fixed inset-0 z-40 flex items-center justify-center bg-black/40 px-4 py-6" wire:click="closeTaskForm">
-            <div class="max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-2xl bg-white shadow-xl" wire:click.stop>
+            <div class="max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-2xl bg-white shadow-xl" @click.stop>
                 <div class="flex items-center justify-between border-b px-6 py-4">
                     <h3 class="text-lg font-semibold text-gray-900">Cadastrar nova tarefa</h3>
                     <button type="button" class="text-gray-400 hover:text-gray-600" wire:click="closeTaskForm">
@@ -418,7 +418,7 @@
     @endif
     @if($showPreview && $selectedTask)
         <div class="fixed inset-0 z-30 flex items-center justify-center bg-black/50 px-4 py-6" wire:click="closePreview">
-            <div class="w-full max-w-lg overflow-y-auto rounded-2xl bg-white shadow-xl" wire:click.stop>
+            <div class="w-full max-w-lg overflow-y-auto rounded-2xl bg-white shadow-xl" @click.stop>
                 <div class="flex items-start justify-between border-b px-6 py-4">
                     <div>
                         <h3 class="text-lg font-semibold text-gray-900">{{ $selectedTask->name }}</h3>

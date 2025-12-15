@@ -1,7 +1,7 @@
 <div x-data="{ confirmDelete: false }">
     @if($showModal)
         <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4" wire:click.self="closeModal">
-            <div class="flex h-[90vh] w-full max-w-5xl flex-col rounded-xl bg-neutral-900 shadow-2xl" wire:click.stop>
+            <div class="flex h-[90vh] w-full max-w-5xl flex-col rounded-xl bg-neutral-900 shadow-2xl" @click.stop>
 
                 <!-- Header -->
                 <div class="flex items-center justify-between border-b border-neutral-700 px-6 py-4">
